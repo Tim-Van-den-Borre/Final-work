@@ -1,0 +1,36 @@
+{"intents": [
+        {"tag": "payments",
+         "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Is payment cash only?"],
+         "responses": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards"]
+        },
+        {"tag": "name",
+         "patterns": ["Who are you?", "What is your name?"],
+         "responses": ["I am Freddy, i assist the doctor when he/she is not available", "My name is Freddy"]
+        },
+        {"tag": "age",
+         "patterns": ["How old are you?", "What is your age?", "Your age?"],
+         "responses": ["I am 22 years old", "Age of 22"]
+        },
+        {"tag": "greeting",
+         "patterns": ["Hi", "Hello", "Good day", "Afternoon", "Hey", "Morning", "Evening"],
+         "responses": ["Hello there", "Good to see you again", "Hi there, how can I help?", "Hi, how may i be of survice?"]
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye", "Got to go", "I have to go"],
+         "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."]
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "That's helpful", "Thats kind of you"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure", "you're welcome"]
+        },
+        {"tag": "hours",
+         "patterns": ["How long are you available?", "What are your hours?", "When are you open?"],
+         "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
+        },
+        {"tag": "sick",
+          "patterns": ["I feel sick i need an appointment", "I would like to see the doctor", "I need to see a doctor"],
+          "responses": ["Right away, i'll check if there are any free spots"]
+
+        }
+   ]
+}
