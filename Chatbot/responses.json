@@ -1,0 +1,26 @@
+{
+    "greeting": {
+        "response": ["Hello there", "Good to see you again", "Hi there, how can I help?", "Hi, how may i be of survice?"]
+    },
+    "name": {
+        "response": ["I am Tim, i assist the doctor when he/she is not available", "My name is Tim", "My name is Tim, pleasure to meet you!", "I'm Tim"]
+    },
+    "payment": {
+        "response": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards", "VISA, Mastercard and AMEX", "Most major cards"]
+    },
+    "age": {
+        "response": ["I am 22 years old", "Age of 22", "I'm 22", "I'm at the age of 22"]
+    },
+    "goodbye": {
+        "response": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon.", "Goodbye"]
+    },
+    "thanks": {
+        "response": ["Happy to help!", "Any time!", "My pleasure", "you're welcome"]
+    },
+    "hours": {
+        "response": ["We're open every work day 9am-5pm", "Our hours are 9am-5pm every work day", "9am to 5pm on working days", "9am-5pm, only on working days"]
+    },
+    "unclear": {
+        "response": ["Please explain yourself more.", "I didn't understand you.", "Would you like to explain this a bit more.", "I didn't quite understand you."]
+    }
+}

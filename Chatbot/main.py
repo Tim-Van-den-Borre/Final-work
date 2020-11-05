@@ -1,56 +1,57 @@
+import json
+import entity_recognition
 import nltk
+import numpy
+import pickle
+import random
+import tensorflow
+import tflearn
+
 from nltk.stem.lancaster import LancasterStemmer
 
 # Create a new stemmer. Takes the root word from a word.
 stemmer = LancasterStemmer()
 
-import numpy
-import tflearn
-import tensorflow
-import random
-import json
-import pickle
-
-trainable = True
-
 # Import the intents.
-with open('intents.json') as file: data = json.load(file)
+with open('intents.json') as file:
+    data = json.load(file)
 
-if not trainable:
-    try:
-        with open('data.pickle', 'rb') as f:
-            words, labels, training, output = pickle.load(f)
-    except:
-        trainable = True
+# Load the model made from intents.json. If found the model is not fully retrained.
+try:
+    with open('data.pickle', 'rb') as model:
+        words, tags, training, output = pickle.load(model)
+    trainable = True
+except IOError:
+    trainable = True
 
 if trainable:
-    words = []  # The root words.
-    labels = []  # The tags.
-    docs_patterns = []  # The patterns (list).
-    docs_labels = []  # Will contain each tag but as the amount of how many times the tag exists.
+    words = []   # The root words.
+    tags = []  # The tags.
+    patterns = []  # The patterns (list).
+    taglist = []  # Will contain each tag but as the amount of how many times the tag exists.
 
     for intent in data['intents']:
         for pattern in intent['patterns']:
             # Get all the words from the patterns -> words[].
-            words_pattern = nltk.word_tokenize(pattern)
-            words.extend(words_pattern)
+            pattern_words = nltk.word_tokenize(pattern)
+            words.extend(pattern_words)
 
-            # Get all the patterns -> docs_patterns[].
-            docs_patterns.append(words_pattern)
+            # Get all the patterns -> patterns[].
+            patterns.append(pattern_words)
 
             # Get the tag from the pattern -> docs_labels[].
-            docs_labels.append(intent["tag"])
+            taglist.append(intent["tag"])
 
-        # Append each label one time in list labels
-        if intent['tag'] not in labels:
-            labels.append(intent['tag'])
+        # Append each tag one time in list tags.
+        if intent['tag'] not in tags:
+            tags.append(intent['tag'])
 
     # Stem the words(get root word) and remove duplicates -> words[].
     words = [stemmer.stem(word.lower()) for word in words]
 
     # Sort the labels & words
     words = sorted(list(set(words)))
-    labels = sorted(labels)
+    tags = sorted(tags)
 
     # Will contain a list of bag of words that contains 0 and 1.
     training = []
@@ -59,9 +60,9 @@ if trainable:
     output = []
 
     # out_empty = [0, 0, 0, 0, 0, ...]
-    out_empty = [0 for _ in range(len(labels))]
+    out_empty = [0 for _ in range(len(tags))]
 
-    for x, doc in enumerate(docs_patterns):
+    for x, doc in enumerate(patterns):
         # Bag of words
         bag = []
 
@@ -77,7 +78,7 @@ if trainable:
 
         # Represent labels as 0 and 1
         output_row = out_empty[:]
-        output_row[labels.index(docs_labels[x])] = 1
+        output_row[tags.index(taglist[x])] = 1
 
         training.append(bag)
         output.append(output_row)
@@ -87,11 +88,10 @@ if trainable:
 
     # Save the words, labels, training & output data to the data.pickle file.
     with open('data.pickle', 'wb') as f:
-        pickle.dump((words, labels, training, output), f)
+        pickle.dump((words, tags, training, output), f)
 
 # Reset the underlying graph data
 tensorflow.reset_default_graph()
-
 
 # AI part. Neural network connections.
 network = tflearn.input_data(shape=[None, len(training[0])]) # Define the input shape we are expecting for the model.
@@ -114,7 +114,6 @@ else:
     model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
     model.save("model.tflearn")
 
-
 def bag_of_words(input_user, words):
     bag = [0 for _ in range(len(words))]
 
@@ -128,26 +127,31 @@ def bag_of_words(input_user, words):
 
     return numpy.array(bag)
 
-
 def chat():
-    print("Start talking with the bot (type leave to stop)!")
+    print("Start talking with the bot.")
     while True:
         try:
-            input_user = input("You: ")
-            if input_user.lower() == "leave":
+            input_user = input(">>> ")
+            if input_user.lower() == "/leave":
                 break
+
+            entity_recognition.recognize_entities(input_user) #entity recognition.
 
             results = model.predict([bag_of_words(input_user, words)])[0]
             results_index = numpy.argmax(results)
-            tag = labels[results_index]
+            tag = tags[results_index]
+
+            with open('responses.json') as json_file:
+                data = json.load(json_file)
+
+            random_response = random.randint(0, 3)
+
+            response_chatbot = "{}".format(data[tag]['response'][random_response])
 
             if results[results_index] > 0.7:
-                for tg in data["intents"]:
-                    if tg['tag'] == tag:
-                        responses = tg['responses']
-                print(random.choice(responses))
+                print("Bot: " + response_chatbot)
             else:
-                print("I am sorry, I didn't understand you")
+                print("Bot: " + "{}".format(data['unclear']['response'][random_response]))
 
         except UnboundLocalError as e:
             print("Some error occurred: {}".format(e))
@@ -155,7 +159,6 @@ def chat():
 chat()
 
 # Links geraadpleegd op 18/10
-# https://techwithtim.net/tutorials/ai-chatbot/part-1/
 # 	-> https://www.youtube.com/watch?v=wypVcNIH6D4
 # 	-> https://www.youtube.com/watch?v=ON5pGUJDNow
 # 	-> https://www.youtube.com/watch?v=PzzHOvpqDYs

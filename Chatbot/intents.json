@@ -1,0 +1,32 @@
+{
+  "intents": [
+    {
+      "tag": "payment",
+      "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Is payment cash only?"]
+    },
+    {
+      "tag": "name",
+      "patterns": ["Who are you?", "What is your name?", "Name?"]
+    },
+    {
+      "tag": "age",
+      "patterns": ["How old are you?", "What is your age?", "Your age?"]
+    },
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Good day", "Afternoon", "Hey", "Morning", "Evening"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye", "Got to go", "I have to go"]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thats kind of you"]
+    },
+    {
+      "tag": "hours",
+      "patterns": ["How long are you available?", "What are your hours?", "When are you open?"]
+    }
+   ]
+}
