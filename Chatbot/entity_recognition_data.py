@@ -19,5 +19,7 @@ def preprocessdata():
         ("Is an appointment at 9am possible or not? ", {"entities": [(22, 24, "appointment_hour")]}),
 
         ("i would like an appointment at 9pm", {"entities": [(32, 34, "appointment_hour")]}),
+
+        ("is an appointment at 9am a possibility?", {"entities": [(22, 24, "appointment_hour")]})
     ]
     return TRAIN_DATA
