@@ -23,6 +23,7 @@
   },
   "labels":{
     "ner":[
+      "appointment_day",
       "appointment_hour",
       "name_doctor"
     ]

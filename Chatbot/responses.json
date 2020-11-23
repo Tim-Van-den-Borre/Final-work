@@ -22,5 +22,14 @@
     },
     "unclear": {
         "response": ["Please explain yourself more.", "I didn't understand you.", "Would you like to explain this a bit more.", "I didn't quite understand you."]
+    },
+    "appointment": {
+        "response": ["I'll check the doctor's agenda.", "Right away, a moment please.", "I'm sorry, that's not possible.", "There are no free spots this month, would you like an appointment next month?"]
+    },
+    "possibility": {
+        "response": ["Yes, that's possible", "No, i'm sorry", "Maybe, I'll have to check to agenda. One moment.", "No"]
+    },
+    "confirmation": {
+        "response": ["Done!", "Your appointment has been created.", "Your appointment has been created. Please confirm you got an email.", "All done"]
     }
 }

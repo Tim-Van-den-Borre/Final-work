@@ -2,31 +2,85 @@
   "intents": [
     {
       "tag": "payment",
-      "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Is payment cash only?"]
+      "patterns": [
+        "Do you take credit cards?",
+        "Do you accept Mastercard?",
+        "Is payment cash only?"]
     },
     {
       "tag": "name",
-      "patterns": ["Who are you?", "What is your name?", "Name?"]
+      "patterns": [
+        "Who are you?",
+        "What is your name?",
+        "Name?"]
     },
     {
       "tag": "age",
-      "patterns": ["How old are you?", "What is your age?", "Your age?"]
+      "patterns": [
+        "How old are you?",
+        "What is your age?",
+        "Your age?"]
     },
     {
       "tag": "greeting",
-      "patterns": ["Hi", "Hello", "Good day", "Afternoon", "Hey", "Morning", "Evening"]
+      "patterns": [
+        "Hi",
+        "Hello",
+        "Good day",
+        "Afternoon",
+        "Hey",
+        "Morning",
+        "Evening"]
     },
     {
       "tag": "goodbye",
-      "patterns": ["Bye", "See you later", "Goodbye", "Got to go", "I have to go"]
+      "patterns": [
+        "Bye",
+        "See you later",
+        "Goodbye",
+        "Got to go",
+        "I have to go"]
     },
     {
       "tag": "thanks",
-      "patterns": ["Thanks", "Thank you", "That's helpful", "Thats kind of you"]
+      "patterns": [
+        "Thanks",
+        "Thank you",
+        "That's helpful",
+        "Thats kind of you"]
     },
     {
       "tag": "hours",
-      "patterns": ["How long are you available?", "What are your hours?", "When are you open?"]
+      "patterns": [
+        "How long are you available?",
+        "What are your hours?",
+        "When are you open?"]
+    },
+    {
+      "tag": "appointment",
+      "patterns": [
+        "I would like an appointment with doctor Tim",
+        "I would like an appointment with doctor Ayse",
+        "I would like an appointment with doctor Alexander",
+        "An appointment with doctor Kevin please.",
+        "Can i have an appointment tomorrow?",
+        "Can i have an appointment today?",
+        "Can i have an appointment next thursday?",
+        "Can i have an appointment with doctor tim tomorrow?",
+        "Can i have an appointment with doctor tim next monday?",
+        "I would like an appointment at 9am"
+]
+    },
+    {
+      "tag": "possibility",
+      "patterns": [
+        "Is an appointment at 9am a possibility?",
+        "Is an appointment at 9am and 10am a possibility?",
+        "Is an appointment for today still possible?",
+        "Is doctor Carla free tomorrow?",
+        "Is an appointment at 9am possible or not?",
+        "Is an appointment at 10am possible?",
+        "Is an appointment at 10pm possible?"]
     }
-   ]
+  ]
 }

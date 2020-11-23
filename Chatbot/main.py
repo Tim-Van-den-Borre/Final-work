@@ -131,7 +131,7 @@ def chat():
     print("Start talking with the bot.")
     while True:
         try:
-            input_user = input(">>> ")
+            input_user = input("> ")
             if input_user.lower() == "/leave":
                 break
 
