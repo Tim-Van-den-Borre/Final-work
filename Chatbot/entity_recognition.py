@@ -80,12 +80,14 @@ def train_spacy(data, timeshowntochatbot):
     return nlp
 
 
-recognize_entities("I would like an appointment with doctor Tim")
-
+# Named Entity Recognition with NLTK & Spacy. Geraadpleegd 21/10
 # https://towardsdatascience.com/named-entity-recognition-with-nltk-and-spacy-8c4a7d88e7da
 
+# Named Entity Recognition Data example. Geraadpleegd 22/10
 # https://towardsdatascience.com/custom-named-entity-recognition-using-spacy-7140ebbb3718
 
+# Named Entity Recognition Custom Training Data. Geraadpleegd 22/10
 # https://medium.com/@manivannan_data/how-to-train-ner-with-custom-training-data-using-spacy-188e0e508c6
 
+# Spacy. Geraadpleegd 21/10
 # https://spacy.io/usage/spacy-101

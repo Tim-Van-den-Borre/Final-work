@@ -4,7 +4,6 @@ import nltk
 import numpy
 import pickle
 import random
-import tensorflow
 import tflearn
 
 from nltk.stem.lancaster import LancasterStemmer
@@ -20,7 +19,7 @@ with open('intents.json') as file:
 try:
     with open('data.pickle', 'rb') as model:
         words, tags, training, output = pickle.load(model)
-    trainable = True
+    trainable = False
 except IOError:
     trainable = True
 
@@ -90,9 +89,6 @@ if trainable:
     with open('data.pickle', 'wb') as f:
         pickle.dump((words, tags, training, output), f)
 
-# Reset the underlying graph data
-tensorflow.reset_default_graph()
-
 # AI part. Neural network connections.
 network = tflearn.input_data(shape=[None, len(training[0])]) # Define the input shape we are expecting for the model.
 network = tflearn.fully_connected(network, 8) # Add a fully connected layer to our neural network layer.
@@ -127,7 +123,32 @@ def bag_of_words(input_user, words):
 
     return numpy.array(bag)
 
-def chat():
+def chat(Message):
+
+    try:
+        input_user = Message
+
+        entity_recognition.recognize_entities(input_user)  # entity recognition.
+
+        results = model.predict([bag_of_words(input_user, words)])[0]
+        results_index = numpy.argmax(results)
+        tag = tags[results_index]
+
+        with open('responses.json') as json_file:
+            data = json.load(json_file)
+
+        random_response = random.randint(0, 3)
+
+        response_chatbot = "{}".format(data[tag]['response'][random_response])
+
+        if results[results_index] > 0.7:
+            return response_chatbot
+        else:
+            return "{}".format(data['unclear']['response'][random_response])
+    except UnboundLocalError as e:
+        print("Some error occurred: {}".format(e))
+
+def ChatForTraining():
     print("Start talking with the bot.")
     while True:
         try:
@@ -156,11 +177,12 @@ def chat():
         except UnboundLocalError as e:
             print("Some error occurred: {}".format(e))
 
-chat()
+# Chatbot. Geraadpleegd op 18/10
+# https://www.youtube.com/watch?v=wypVcNIH6D4
+# https://www.youtube.com/watch?v=ON5pGUJDNow
+# https://www.youtube.com/watch?v=PzzHOvpqDYs
+# https://www.youtube.com/watch?v=ICL7VRKvS_A
+# https://www.youtube.com/watch?v=jBXAi-Vm_-g
 
-# Links geraadpleegd op 18/10
-# 	-> https://www.youtube.com/watch?v=wypVcNIH6D4
-# 	-> https://www.youtube.com/watch?v=ON5pGUJDNow
-# 	-> https://www.youtube.com/watch?v=PzzHOvpqDYs
-# 	-> https://www.youtube.com/watch?v=ICL7VRKvS_A
-# 	-> https://www.youtube.com/watch?v=jBXAi-Vm_-g
+# Chatbot layout example. Geraadpleegd op 24/11
+# https://dev.to/sylviapap/make-a-simple-chatbot-with-javascript-1gc
