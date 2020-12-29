@@ -29,7 +29,7 @@ def post():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
 
 # Flask API. Geraadpleegd op 24/11.
 # https://opensource.com/article/19/11/python-web-api-flask

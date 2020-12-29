@@ -91,3 +91,5 @@ def train_spacy(data, timeshowntochatbot):
 
 # Spacy. Geraadpleegd 21/10
 # https://spacy.io/usage/spacy-101
+
+recognize_entities("I would like an appointment with doctor Tim next friday")
