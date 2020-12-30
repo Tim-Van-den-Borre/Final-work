@@ -25,6 +25,11 @@
             </div>
 
             <div class="mt-4">
+                <x-jet-label for="phonenumber" value="{{ __('Phone (format: 0999 99 99 99)') }}" />
+                <x-jet-input id="phonenumber" class="block mt-1 w-full" type="tel" name="phonenumber" pattern="[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}" :value="old('phonenumber')" required />
+            </div>
+
+            <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>

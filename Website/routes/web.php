@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Middleware\VerifyRole;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,11 +47,11 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/personal-data', [UserController::class, 'getPersonalData'])->name('personal-data')->middleware('auth');
 
-Route::get('/patients', [UserController::class, 'getPatients'])->name('patients')->middleware('auth');
+Route::get('/patients', [UserController::class, 'getPatients'])->name('patients')->middleware('auth', VerifyRole::class);
 
-Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors')->middleware('auth');
+Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors')->middleware('auth', VerifyRole::class);
 
-Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments')->middleware('auth');
+Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments')->middleware('auth', VerifyRole::class);
 
 Route::get('/privacy-policy', [PrivacyController::class, 'index'])->name('privacy-policy');
 

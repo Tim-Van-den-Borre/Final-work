@@ -27,6 +27,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'role' => ['string'],
             'birthdate' => ['required', 'date'],
+            'phonenumber' => ['required'],
             'privacy_policy' => ['accepted'], 
         ])->validate();
 
@@ -36,6 +37,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'role' => $input['role'],
             'birthdate' => $input['birthdate'],
+            'phonenumber' => $input['phonenumber'],
             'password' => Hash::make($input['password']),
         ]);
     }
