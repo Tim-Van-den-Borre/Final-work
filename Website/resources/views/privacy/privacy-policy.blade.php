@@ -24,24 +24,24 @@
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 light:bg-gray-900 sm:items-center sm:pt-0">
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <h1>Privacy Policy for timvandenborre.be</h1>
+                <h1>Privacy Policy for {{ config('app.name', '') }}</h1>
 
-                <p>At timvandenborre.be, accessible from timvandenborre.be, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by timvandenborre.be and how we use it.</p>
+                <p>At {{ config('app.name', '') }}, accessible from {{ config('app.name', '') }}, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by {{ config('app.name', '') }} and how we use it.</p>
 
                 <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us. Our Privacy Policy was generated with the help of <a href="https://www.gdprprivacynotice.com/"><u>GDPR Privacy Policy Generator</u></a>.</p>
 
                 <h2>General Data Protection Regulation (GDPR)</h2>
                 <p>We are a Data Controller of your information.</p>
 
-                <p>timvandenborre.be legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Information we collect and the specific context in which we collect the information:</p>
+                <p>{{ config('app.name', '') }} legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Information we collect and the specific context in which we collect the information:</p>
                 <ul>
-                    <li>timvandenborre.be needs to perform a contract with you</li>
-                    <li>You have given timvandenborre.be permission to do so</li>
-                    <li>Processing your personal information is in timvandenborre.be legitimate interests</li>
-                    <li>timvandenborre.be needs to comply with the law</li>
+                    <li>{{ config('app.name', '') }} needs to perform a contract with you</li>
+                    <li>You have given {{ config('app.name', '') }} permission to do so</li>
+                    <li>Processing your personal information is in {{ config('app.name', '') }} legitimate interests</li>
+                    <li>{{ config('app.name', '') }} needs to comply with the law</li>
                 </ul>
                 
-                <p>timvandenborre.be will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.</p>
+                <p>{{ config('app.name', '') }} will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.</p>
 
                 <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. 
                 If you wish to be informed what Personal Information we hold about you and if you want it to be removed from our systems, please contact us using the <b>Contact Information</b> section at the bottom of the page.</p>
@@ -57,7 +57,7 @@
 
                 <h2>Log Files</h2>
 
-                <p>timvandenborre.be follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected by log files include internet protocol (IP) addresses, browser type and the date and time stamp. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site and tracking the amount of users that went on the website.</p>
+                <p>{{ config('app.name', '') }} follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected by log files include internet protocol (IP) addresses, browser type and the date and time stamp. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site and tracking the amount of users that went on the website.</p>
 
                 <h2>Retention period of personal data / Processing purposes</h2>
                 
@@ -67,17 +67,17 @@
 
                 <h2>Cookies and Web Beacons</h2>
 
-                <p>Like any other website, timvandenborre.be uses 'cookies'. This website only uses the fully necessary cookies to keep the site functional.</p>
+                <p>Like any other website, {{ config('app.name', '') }} uses 'cookies'. This website only uses the fully necessary cookies to keep the site functional.</p>
 
                 <p>For more general information on cookies, please read <a href="https://www.cookieconsent.com/what-are-cookies/"><u>what cookies are</u></a>.</p>
 
                 <h2>Third Party Privacy Policies</h2>
 
-                <p>timvandenborre.be's Privacy Policy does not apply to other advertisers or websites.</p>
+                <p>{{ config('app.name', '') }}'s Privacy Policy does not apply to other advertisers or websites.</p>
 
                 <h2>Online Privacy Policy Only</h2>
 
-                <p>Our Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in timvandenborre.be. This policy is not applicable to any information collected offline or via channels other than this website.</p>
+                <p>Our Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in {{ config('app.name', '') }}. This policy is not applicable to any information collected offline or via channels other than this website.</p>
 
                 <h2>Consent</h2>
 

@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function getPersonalData() {
         $user = DB::table('users')->where('name', Auth::user()->name)->first();
         $jsonData = json_encode($user);
 
@@ -28,5 +28,17 @@ class UserController extends Controller
         header("Content-Type: text/plain");
         readfile($file);
         unlink($file);
+    }
+
+    public function getPatients(){
+        $patients = DB::table('users')->where('role', 'Patient')->get();
+
+        return view('patients', ['patients' => $patients]);
+    }
+
+    public function getDoctors(){
+        $doctors = DB::table('users')->where('role', 'Doctor')->get();
+
+        return view('doctors', ['doctors' => $doctors]);
     }
 }

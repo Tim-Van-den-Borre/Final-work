@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,13 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/personal-data', [UserController::class, 'index'])->name('personal-data');
+Route::get('/personal-data', [UserController::class, 'getPersonalData'])->name('personal-data');
+
+Route::get('/patients', [UserController::class, 'getPatients'])->name('patients');
+
+Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors');
+
+Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments');
 
 Route::get('/privacy-policy', [PrivacyController::class, 'index'])->name('privacy-policy');
 
