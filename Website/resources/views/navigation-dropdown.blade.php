@@ -25,6 +25,10 @@
                             {{ __('Doctors') }}
                         </x-jet-nav-link>
                     @endif
+
+                    <x-jet-nav-link href="{{ route('appointments') }}" :active="request()->routeIs('appointments')">
+                        {{ __('Appointments') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
@@ -130,6 +134,7 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
+
             @if(Auth::user()->role == 'Doctor')
                 <x-jet-responsive-nav-link href="{{ route('patients') }}" :active="request()->routeIs('patients')">
                     {{ __('Patients') }}
@@ -139,6 +144,10 @@
                     {{ __('Doctors') }}
                 </x-jet-responsive-nav-link>
             @endif
+
+            <x-jet-responsive-nav-link href="{{ route('appointments') }}" :active="request()->routeIs('appointments')">
+                {{ __('Appointments') }}
+            </x-jet-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
