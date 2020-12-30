@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->date('birthdate')->default(Carbon::now()->subYears(20));
-            $table->string('phonenumber')->default("+32 000 00 00 00");
+            $table->string('phonenumber')->default("0000 00 00 00");
             $table->string('role')->default('Patient');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

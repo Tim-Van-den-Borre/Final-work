@@ -31,9 +31,17 @@
                                                 </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Email: {{ $patient->email }}</p>
-                                                    <p>Date of Birth: {{ $patient->birthdate }}</p>
-                                                    <p>Patient since: {{ $patient->created_at }}</p>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <p>Email: {{ $patient->email }}</p>
+                                                            <p>Phone: {{ $patient->phonenumber }}</p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p>Date of Birth: {{ $patient->birthdate }}</p>
+                                                            <p>Patient since: {{ $patient->created_at }}</p>
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <p>Medical history:</p>
                                                     <ul class="list-group">
                                                         <li class="list-group-item">Cras justo odio</li>

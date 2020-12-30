@@ -19,7 +19,7 @@
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                    <p>Email: {{ $doctor->email}}</p>
-                                   <p>Date of Birth: {{ $doctor->birthdate}}</p>
+                                   <p>Phone: {{ $doctor->phonenumber}}</p>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        {{ __('Update your account\'s profile information.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -64,6 +64,18 @@
             <x-jet-label for="email" value="{{ __('Email') }}" />
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="phonenumber" value="{{ __('Phone (format: 0999 99 99 99)') }}" />
+            <x-jet-input id="phonenumber" type="tel" class="mt-1 block w-full" pattern="[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}" wire:model.defer="state.phonenumber" />
+            <x-jet-input-error for="phonenumber" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="birthdate" value="{{ __('Birthdate') }}" />
+            <x-jet-input id="birthdate" type="date" class="mt-1 block w-full" wire:model.defer="state.birthdate" />
+            <x-jet-input-error for="birthdate" class="mt-2" />
         </div>
     </x-slot>
 
