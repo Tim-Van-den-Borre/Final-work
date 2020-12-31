@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Appointment extends Model
+class MedicalHistory extends Model
 {
     use HasFactory;
 
-        /**
+            /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -17,7 +17,7 @@ class Appointment extends Model
     protected $fillable = [
         'patientID',
         'doctorID',
-        'reason',
-        'date',
+        'condition',
+        'date'
     ];
 }

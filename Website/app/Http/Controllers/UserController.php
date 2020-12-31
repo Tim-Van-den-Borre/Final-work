@@ -33,7 +33,13 @@ class UserController extends Controller
     public function getPatients(){
         $patients = DB::table('users')->where('role', 'Patient')->get();
 
-        return view('patients', ['patients' => $patients]);
+        $appointments = DB::table('appointments')->get();
+
+        $doctors = DB::table('users')->where('role', 'Doctor')->get();
+
+        $conditions = DB::table('medical_histories')->get();
+
+        return view('patients', ['patients' => $patients, 'appointments' => $appointments, 'doctors' => $doctors, 'conditions' => $conditions]);
     }
 
     public function getDoctors(){
