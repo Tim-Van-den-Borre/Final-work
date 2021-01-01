@@ -36,31 +36,36 @@
                                                             <p style="word-wrap:break-word;">Date of Birth: {{ $patient->birthdate }}</p>
                                                             <p style="word-wrap:break-word;">Patient since: {{ $patient->created_at }}</p>
                                                         </div>
+                                                    </div><br />
+                                                    <div class="row">
+                                                        
+                                                        <div class="col-6">
+                                                           <p style="border-bottom: solid #108fc2;">Appointment history:</p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p style="border-bottom: solid #108fc2;">Medical history:</p>
+                                                        </div>
                                                     </div>
-                                                    <hr />
+                                                    @foreach($appointments as $appointment)
                                                     <div class="row">
                                                         <div class="col-6">
-                                                            <p>Appointment history:</p>
                                                             <ul class="list-group">
-                                                                @foreach($appointments as $appointment)
-                                                                    @if($appointment->patientID == $patient->id)
-                                                                        <li class="list-group-item" style="height: 11rem;">
-                                                                            <p style="word-wrap:break-word;">Date: {{ $appointment->date }} </p>
-                                                                            @foreach ($doctors as $doctor)
-                                                                                @if($appointment->doctorID == $doctor->id)
-                                                                                <p style="word-wrap:break-word;">Doctor: {{ $doctor->name }} </p>
-                                                                                @endif
-                                                                            @endforeach 
-                                                                            <p style="word-wrap:break-word;">Reason: {{ $appointment->reason}} </p></li>
-                                                                    @endif
-                                                                @endforeach
+                                                                @if($appointment->patientID == $patient->id)
+                                                                    <li class="list-group-item" style="height: 11rem;">
+                                                                        <p style="word-wrap:break-word;">Date: {{ $appointment->date }} </p>
+                                                                        @foreach ($doctors as $doctor)
+                                                                            @if($appointment->doctorID == $doctor->id)
+                                                                            <p style="word-wrap:break-word;">Doctor: {{ $doctor->name }} </p>
+                                                                            @endif
+                                                                        @endforeach 
+                                                                        <p style="word-wrap:break-word;">Reason: {{ $appointment->reason}} </p></li>
+                                                                @endif
                                                             </ul>
                                                         </div>
                                                         <div class="col-6">
-                                                            <p>Medical history:</p>
                                                             <ul class="list-group">
                                                                 @foreach($conditions as $condition)
-                                                                    @if($condition->patientID == $patient->id)
+                                                                    @if($condition->patientID == $patient->id && $condition->appointmentID == $appointment->id)
                                                                         <li class="list-group-item" style="height: 11rem;">
                                                                             <p style="word-wrap:break-word;">Condition: {{ $condition->condition }}</p>
                                                                             @foreach ($doctors as $doctor)
@@ -75,6 +80,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>

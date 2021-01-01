@@ -17,6 +17,7 @@ class MedicalHistory extends Model
     protected $fillable = [
         'patientID',
         'doctorID',
+        'appointmentID',
         'condition',
         'date'
     ];

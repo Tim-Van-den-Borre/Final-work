@@ -33,7 +33,7 @@ class UserController extends Controller
     public function getPatients(){
         $patients = DB::table('users')->where('role', 'Patient')->get();
 
-        $appointments = DB::table('appointments')->get();
+        $appointments = DB::table('appointments')->orderBy('date', 'desc')->get();
 
         $doctors = DB::table('users')->where('role', 'Doctor')->get();
 

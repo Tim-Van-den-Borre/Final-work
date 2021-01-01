@@ -25,6 +25,7 @@ class MedicalHistoryFactory extends Factory
     {
         return [
             'patientID' => rand(2, 21),
+            'appointmentID' => rand(2, 21),
             'doctorID' => '1',
             'condition' => Str::random(30),
             'date' => Carbon::now()

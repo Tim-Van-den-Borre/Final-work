@@ -24,7 +24,7 @@
                 background-color: #108fc2;
                 text-align: center;
                 border-radius: 15px 15px 0px 0px;
-                padding: 5px;
+                padding: 3px;
             }
 
             .card {
@@ -76,22 +76,20 @@
 
             .chat-window{
                 position:fixed;
-                bottom:48px;
+                bottom:80px;
                 right:105px;
                 display:table;
             }
-
+            
             .float{
                 position:fixed;
-                width:50px;
-                height:50px;
                 bottom:40px;
                 right:40px;
-                background-color:#108fc2;
-                border-radius:50px;
+                border-radius:20px;
+                cursor: pointer;
             }
 
-            a.float:click + div.label-container{
+            a.float:click + div{
             visibility: visible;
             opacity: 1;
             }
@@ -177,7 +175,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 sm:text-left">
                         <div class="flex items-center">
@@ -186,13 +183,9 @@
                             </a>
                         </div>
                     </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
                 </div>
             
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
+                <div class="flex justify-center mt-4 sm:items-center ">
                     <?php
                     if(!isset($_COOKIE['laravel_session_message'])){
                     ?>
@@ -205,13 +198,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <a class="float" onclick="openChat()" id="chatButton"></a>
+                            <button type="button" class="float btn btn-outline-info btn-sm" onclick="openChat()" id="chatButton">Chat with us</button>
                             <div class="chat-window">
                                 <div class="card" id="card" style="display: none;">
                                     <div class="header"><p>Appointment Bot</p></div>
                                     <div class="card-body" id="card-body">
                                         <div class="ChatWindow"></div>
-                                    </div>
+                                    </div>  
                                    <div class="card-footer">
                                         <input type="text" class="form-control" id="UserMessageInput" placeholder="Enter your message">
                                     </div>
@@ -222,9 +215,16 @@
                         
                                         if (main.style.display === "none") {
                                             main.style.display = "block";
+
+                                            let button = document.getElementById("chatButton");
+                                            button.innerText = "Close chat";
+
                                         } else {
                                             let window = document.getElementById("ChatWindow");
                                             main.style.display = "none";
+
+                                            let button = document.getElementById("chatButton");
+                                            button.innerText = "Chat with us";
                                         }
                                     }
                         

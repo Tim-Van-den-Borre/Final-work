@@ -15,11 +15,16 @@ class CreateMedicalHistoriesTable extends Migration
     {
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
-            $table->integer('patientID');
-            $table->integer('doctorID');
+            $table->unsignedBigInteger('patientID');
+            $table->unsignedBigInteger('doctorID');
+            $table->unsignedBigInteger('appointmentID');
             $table->string('condition');
             $table->date('date');
             $table->timestamps();
+
+            $table->foreign('patientID')->references('id')->on('users');
+            $table->foreign('doctorID')->references('id')->on('users')->where('role', 'Doctor');
+            $table->foreign('appointmentID')->references('id')->on('appointments');
         });
     }
 
