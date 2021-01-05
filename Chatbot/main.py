@@ -186,5 +186,3 @@ def ChatForTraining():
 
 # Chatbot layout example. Geraadpleegd op 24/11
 # https://dev.to/sylviapap/make-a-simple-chatbot-with-javascript-1gc
-
-#ChatForTraining()

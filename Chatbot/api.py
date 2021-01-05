@@ -10,8 +10,7 @@ api = Api(app)
 
 @app.route('/', methods=['GET'])
 def get():
-    data = request.get_json()
-    return data
+    return request.get_json()
 
 
 @app.route('/chat', methods=['POST'])

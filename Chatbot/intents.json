@@ -5,21 +5,31 @@
       "patterns": [
         "Do you take credit cards?",
         "Do you accept Mastercard?",
-        "Is payment cash only?"]
+        "Is payment cash only?",
+        "What payment methods are available?",
+        "Is payment cash only or also with cards?",
+        "What are the payment methods i can use?",
+        "Payment methods?",
+        "How can i pay?"]
     },
     {
       "tag": "name",
       "patterns": [
         "Who are you?",
         "What is your name?",
-        "Name?"]
+        "What do i call you?",
+        "Name?",
+        "What are you?",
+        "Are you a bot?"]
     },
     {
       "tag": "age",
       "patterns": [
         "How old are you?",
         "What is your age?",
-        "Your age?"]
+        "Your age?",
+        "Age?",
+        "Do you have an age?"]
     },
     {
       "tag": "greeting",
@@ -29,8 +39,14 @@
         "Good day",
         "Afternoon",
         "Hey",
+        "Hoy",
+        "Heyy",
         "Morning",
-        "Evening"]
+        "Evening",
+        "Good Afternoon",
+        "Sup",
+        "Hey there",
+        "Hi there"]
     },
     {
       "tag": "goodbye",
@@ -39,7 +55,9 @@
         "See you later",
         "Goodbye",
         "Got to go",
-        "I have to go"]
+        "I have to go",
+        "See you next time",
+        "Untill next time"]
     },
     {
       "tag": "thanks",
@@ -47,6 +65,11 @@
         "Thanks",
         "Thank you",
         "That's helpful",
+        "Thank you for the information",
+        "Thank you very much",
+        "I appreciate your help",
+        "Thanks very kind of you",
+        "Thats very nice of you",
         "Thats kind of you"]
     },
     {
@@ -54,7 +77,8 @@
       "patterns": [
         "How long are you available?",
         "What are your hours?",
-        "When are you open?"]
+        "When are you open?",
+        "What are the hours?"]
     },
     {
       "tag": "appointment",
@@ -68,8 +92,8 @@
         "Can i have an appointment next thursday?",
         "Can i have an appointment with doctor tim tomorrow?",
         "Can i have an appointment with doctor tim next monday?",
-        "I would like an appointment at 9am"
-]
+        "I would like an appointment at 9am",
+        "I need an appointment tomorrow"]
     },
     {
       "tag": "possibility",
@@ -80,7 +104,8 @@
         "Is doctor Carla free tomorrow?",
         "Is an appointment at 9am possible or not?",
         "Is an appointment at 10am possible?",
-        "Is an appointment at 10pm possible?"]
+        "Is an appointment at 10pm possible?",
+        "Is it possible to have an appointment at 5pm?"]
     }
   ]
 }

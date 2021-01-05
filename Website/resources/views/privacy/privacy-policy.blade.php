@@ -18,6 +18,16 @@
             body {
                 font-family: 'Nunito';
             }
+
+            h1 {
+                border-bottom: solid #108fc2;
+            }
+
+            h2 {
+                text-decoration: underline;
+                -webkit-text-decoration-color: #108fc2;
+                text-decoration-color: #108fc2;
+            }
         </style>
     </head>
     <body class="antialiased">
