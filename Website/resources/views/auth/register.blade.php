@@ -7,10 +7,12 @@
 
         <x-jet-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" >
             @csrf
 
-            <div>
+            <x-jet-label value="{{ __('Register as a patient') }}" style="border-bottom: solid #108fc2;"/>
+
+            <div class="mt-4">
                 <x-jet-label for="name" value="{{ __('Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
@@ -41,14 +43,6 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="role" value="{{ __('Tell us who you are') }}" />
-                <select class="form-control" id="role" name="role">
-                    <option value="Patient">Patient</option>
-                    <option value="Doctor">Doctor</option>
-                </select>
-            </div>
-
-            <div class="mt-4">
                 <input id="privacy_policy" type="checkbox" class="form-checkbox" name="privacy_policy">
                 <span class="ml-2 text-sm text-gray-600"><a href="{{ route('privacy-policy')}}" target="_blank"><u>Accept Privacy Policy</u></a></span>
             </div>
@@ -62,6 +56,8 @@
                     {{ __('Register') }}
                 </x-jet-button>
             </div>
+            <br />
+            <x-jet-label style="border-bottom: solid #108fc2;"/>
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>

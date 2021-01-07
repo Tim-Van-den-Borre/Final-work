@@ -15,6 +15,8 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            <x-jet-label value="{{ __('Login as Doctor / Patient') }}" style="border-bottom: solid #108fc2;"/>
+            <br />
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
@@ -43,6 +45,8 @@
                     {{ __('Login') }}
                 </x-jet-button>
             </div>
+            <br />
+            <x-jet-label style="border-bottom: solid #108fc2;"/>
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>

@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
 
-                    @if(Auth::user()->role == 'Doctor')
+                    @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')
                         <x-jet-nav-link href="{{ route('patients') }}" :active="request()->routeIs('patients')">
                             {{ __('Patients') }}
                         </x-jet-nav-link>
@@ -135,7 +135,7 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
 
-            @if(Auth::user()->role == 'Doctor')
+            @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')
                 <x-jet-responsive-nav-link href="{{ route('patients') }}" :active="request()->routeIs('patients')">
                     {{ __('Patients') }}
                 </x-jet-responsive-nav-link>

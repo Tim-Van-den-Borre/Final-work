@@ -197,6 +197,9 @@
                                 <button type="button" onclick="setMessageCookie(true); this.parentElement.parentElement.style.display='none';" class="btn btn-info btn-sm">Accept</button>
                             </div>
                         </div>
+                    <?php
+                    }
+                    ?>
                         <div class="row">
                             <button type="button" class="float btn btn-outline-info btn-sm" onclick="openChat()" id="chatButton">Chat with us</button>
                             <div class="chat-window">
@@ -303,10 +306,7 @@
                                 }
                             }
                         </script>
-                    <?php
-                    }
-                    ?>
-            </div>
+                </div>
             </div>
         </div>
     </body>
