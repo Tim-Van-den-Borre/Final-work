@@ -186,3 +186,7 @@ def ChatForTraining():
 
 # Chatbot layout example. Geraadpleegd op 24/11
 # https://dev.to/sylviapap/make-a-simple-chatbot-with-javascript-1gc
+
+# Chatbot example
+# https://towardsdatascience.com/how-to-create-a-chatbot-with-python-deep-learning-in-less-than-an-hour-56a063bdfc44
+# https://towardsdatascience.com/how-to-build-your-own-chatbot-using-deep-learning-bb41f970e281
