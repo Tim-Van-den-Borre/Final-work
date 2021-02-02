@@ -38,12 +38,11 @@
                                                         </div>
                                                     </div><br />
                                                     <div class="row">
-                                                        
                                                         <div class="col-6">
-                                                           <p style="border-bottom: solid #108fc2;">Appointment history:</p>
+                                                           <p style="border-bottom: solid #108fc2;">Appointment history</p>
                                                         </div>
                                                         <div class="col-6">
-                                                            <p style="border-bottom: solid #108fc2;">Medical history:</p>
+                                                            <p style="border-bottom: solid #108fc2;">Medical history</p>
                                                         </div>
                                                     </div>
                                                     @foreach($appointments as $appointment)
@@ -51,7 +50,7 @@
                                                         <div class="col-6">
                                                             <ul class="list-group">
                                                                 @if($appointment->patientID == $patient->id)
-                                                                    <li class="list-group-item" style="height: 11rem;">
+                                                                    <li class="list-group-item" style="height: 11rem; border-left: solid #108fc2;">
                                                                         <p style="word-wrap:break-word;">Date: {{ $appointment->date }} </p>
                                                                         @foreach ($doctors as $doctor)
                                                                             @if($appointment->doctorID == $doctor->id)
@@ -65,11 +64,11 @@
                                                         <div class="col-6">
                                                             <ul class="list-group">
                                                                 @foreach($conditions as $condition)
-                                                                    @if($condition->patientID == $patient->id && $condition->appointmentID == $appointment->id)
-                                                                        <li class="list-group-item" style="height: 11rem;">
+                                                                    @if($appointment->patientID == $patient->id && $condition->appointmentID == $appointment->id)
+                                                                        <li class="list-group-item" style="height: 11rem; border-left: solid #108fc2;">
                                                                             <p style="word-wrap:break-word;">Condition: {{ $condition->condition }}</p>
                                                                             @foreach ($doctors as $doctor)
-                                                                                @if($condition->doctorID == $doctor->id)
+                                                                                @if($appointment->doctorID == $doctor->id)
                                                                                 <p style="word-wrap:break-word;">Diagnosed by: {{ $doctor->name }} </p>
                                                                                 @endif
                                                                             @endforeach

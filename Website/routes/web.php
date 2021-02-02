@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Middleware\VerifyRole;
@@ -53,6 +54,10 @@ Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors')->
 
 Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments')->middleware('auth', VerifyRole::class);
 
+Route::post('/create-appointment', [AppointmentController::class, 'createAppointment'])->name('create-appointment')->middleware('auth', VerifyRole::class);
+
 Route::get('/privacy-policy', [PrivacyController::class, 'index'])->name('privacy-policy');
+
+Route::get('/calender', [CalenderController::class, 'getCalender'])->name('calender')->middleware('auth', VerifyRole::class);
 
 

@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now()
         ]);
 
-        \App\Models\User::factory(9)->create();
+        \App\Models\User::factory(18)->create();
     }
 }

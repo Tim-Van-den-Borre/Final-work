@@ -17,7 +17,7 @@
                         <div class="ml-12">
                             <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                 <p>You have 12 appointments today. To view the appointments please navigate to the Appointments tab.</p>
-                                <p>10 patients have assigned you as their doctor. To view your patients please navigate to the Patients tab.</p>
+                                <p>10 patient(s) have assigned you as their doctor today. To view your patients please navigate to the Patients tab.</p>
                             </div>
                         </div>
                     </div>
