@@ -36,7 +36,9 @@ class AppointmentController extends Controller
         $appointment->reason = $request->input('reason');
         $appointment->date = $request->input('date');
 
+        $user = DB::table('users')->where('id', $appointment->patientID)->get();
+
         $appointment->save();
-        return redirect()->route('appointments');
+        return redirect()->route('appointments')->with('alert', $user[0]->name);
     }
 }

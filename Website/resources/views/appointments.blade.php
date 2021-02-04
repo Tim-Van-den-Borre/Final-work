@@ -9,6 +9,20 @@
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="container">
                 <div class="row">
+                    @if (session('alert'))
+                    <div class="col-12">
+                        <div class="alert alert-success" role="alert" id="notification" style="border-radius: 20px;">
+                            Appointment for <b>{{ session('alert') }}</b> has been created successfully.
+                        </div>
+                        <script>
+                            $("#notification").fadeTo(3000, 500).slideUp(500, function() {
+                                $("#notification").slideUp(500);
+                            });
+                        </script>
+                        </div>
+                    @endif
+                </div>
+                <div class="row">
                     <div class="col-12">
                        <p style="border-bottom: solid #108fc2;">Create an appointment for a patient</p>
                     </div>
@@ -35,7 +49,19 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="reason">Reason</label>
-                                    <textarea class="form-control is-invalid" id="reason" name="reason" placeholder="Reason for the visit" rows="2" required style="resize: none;"></textarea>
+                                    <textarea class="form-control is-invalid" id="reason" name="reason" placeholder="Reason for the visit" rows="2" maxlength="100" required style="resize: none;"></textarea>
+                                    <p id="messageCount" style="text-align: right; font-size: 12px;"></p>
+                                    <script>
+                                        let length = 100;
+                                        $('#messageCount').html('0 / ' + length );
+                                            $('#reason').keyup(function() {
+                                                let textLength = $('#reason').val().length;
+                                                let textLengthOver = length - textLength;
+
+                                                $('#messageCount').html(textLength + ' / ' + length);
+                                            }
+                                        );
+                                    </script>
                                 </div>
 
                                 <div class="col-md-6 mb-3">

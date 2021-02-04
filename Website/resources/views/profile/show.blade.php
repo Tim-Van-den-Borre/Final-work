@@ -49,7 +49,7 @@
                                 If necessary, you can download the data in 'JSON' format that we are keeping from you.
                             </div>
                             <div class="mt-5">
-                                    <a href="{{route('personal-data')}}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
+                                    <a style="text-decoration: none;" href="{{route('personal-data')}}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
                                         Download your data
                                     </a>
                             </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="mt-5">
                                 <form action="#" method="GET">
-                                    <a href="{{ route('privacy-policy')}}" target="_blank" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
+                                    <a style="text-decoration: none;" href="{{ route('privacy-policy')}}" target="_blank" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
                                         Read our privacy policy
                                     </a>
                                 </form>
@@ -84,11 +84,12 @@
                 </div>
             </div>
 
-            <x-jet-section-border />
-
-            <div class="mt-10 sm:mt-0">
-                @livewire('profile.delete-user-form')
-            </div>
+            @if(Auth::user()->role == 'Patient')
+                <x-jet-section-border />
+                <div class="mt-10 sm:mt-0">
+                    @livewire('profile.delete-user-form')
+                </div>
+            @endif
         </div>
     </div>
 </x-app-layout>

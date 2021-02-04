@@ -8,7 +8,8 @@ use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
-use App\Http\Middleware\VerifyRole;
+use App\Http\Middleware\VerifyRoleAdmin;
+use App\Http\Middleware\VerifyRoleDoctorOrAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,16 +49,16 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/personal-data', [UserController::class, 'getPersonalData'])->name('personal-data')->middleware('auth');
 
-Route::get('/patients', [UserController::class, 'getPatients'])->name('patients')->middleware('auth', VerifyRole::class);
+Route::get('/patients', [UserController::class, 'getPatients'])->name('patients')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
 
-Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors')->middleware('auth', VerifyRole::class);
+Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors')->middleware('auth', VerifyRoleAdmin::class);
 
-Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments')->middleware('auth', VerifyRole::class);
+Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
 
-Route::post('/create-appointment', [AppointmentController::class, 'createAppointment'])->name('create-appointment')->middleware('auth', VerifyRole::class);
+Route::post('/create-appointment', [AppointmentController::class, 'createAppointment'])->name('create-appointment')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
 
 Route::get('/privacy-policy', [PrivacyController::class, 'index'])->name('privacy-policy');
 
-Route::get('/calender', [CalenderController::class, 'getCalender'])->name('calender')->middleware('auth', VerifyRole::class);
+Route::get('/calender', [CalenderController::class, 'getCalender'])->name('calender')->middleware('auth');
 
 

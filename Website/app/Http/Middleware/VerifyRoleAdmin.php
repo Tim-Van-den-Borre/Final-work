@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class VerifyRole
+class VerifyRoleAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,17 @@ class VerifyRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::check() || $request->user()->role === 'Patient'){
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+
+        if($request->user()->role == 'Doctor')
+        {
+            return redirect()->route('login');
+        }
+
+        if($request->user()->role == 'Patient')
+        {
             return redirect()->route('login');
         }
 
