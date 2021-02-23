@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use App\Models\Appointment;
+use App\Models\MedicalHistory;
 
 class AppointmentController extends Controller
 {
@@ -39,6 +40,27 @@ class AppointmentController extends Controller
         $user = DB::table('users')->where('id', $appointment->patientID)->get();
 
         $appointment->save();
-        return redirect()->route('appointments')->with('alert', $user[0]->name);
+        return redirect()->route('appointments')->with('appointmentalert', $user[0]->name);
+    }
+
+    public function createMedicalhistory(Request $request){
+        $this->validate($request, [
+            'appointmentID' => 'required',
+            'condition' => 'required',
+            'medicalHistoryDate' => 'required'
+        ]);
+
+        $history = new MedicalHistory();
+        $history->appointmentID = $request->input('appointmentID');
+        $history->condition = $request->input('condition');
+        $history->date = $request->input('medicalHistoryDate');
+
+        $history->save();
+
+        $appointment = DB::table('appointments')->where('id', $history->appointmentID)->get();
+
+        $user = DB::table('users')->where('id', $appointment[0]->patientID)->get();
+
+        return redirect()->route('appointments')->with('medicalhistoryalert', $user[0]->name);
     }
 }

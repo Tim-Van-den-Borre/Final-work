@@ -1,4 +1,4 @@
-<x-jet-action-section>
+<x-jet-action-section id="line">
     <x-slot name="title">
         {{ __('Delete Account') }}
     </x-slot>
@@ -14,7 +14,7 @@
             <p style="color: red;">{{ __('Warning: Removing your account will permanently delete your medical history.') }}</p>
         </div>
 
-        <div class="mt-5">
+        <div class="mt-2">
             <x-jet-danger-button wire:click="confirmUserDeletion" wire:loading.attr="disabled">
                 {{ __('Delete Account') }}
             </x-jet-danger-button>

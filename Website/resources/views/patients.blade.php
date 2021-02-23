@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="mt-8 bg-gray dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                <div class="grid grid-cols-1 md:grid-cols-3">
+                <div class="grid grid-cols-1 md:grid-cols-3" id="line">
                     @foreach($patients as $patient)
                         <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
                             <div class="flex items-center">
@@ -39,10 +39,10 @@
                                                     </div><br />
                                                     <div class="row">
                                                         <div class="col-6">
-                                                           <p style="border-bottom: solid #108fc2;">Appointment history</p>
+                                                           <p id="bottomline">Appointment history</p>
                                                         </div>
                                                         <div class="col-6">
-                                                            <p style="border-bottom: solid #108fc2;">Medical history</p>
+                                                            <p id="bottomline">Medical history</p>
                                                         </div>
                                                     </div>
                                                     @foreach($appointments as $appointment)
@@ -50,7 +50,7 @@
                                                         <div class="col-6">
                                                             <ul class="list-group">
                                                                 @if($appointment->patientID == $patient->id)
-                                                                    <li class="list-group-item" style="height: 12rem; border-left: solid #108fc2;">
+                                                                    <li class="list-group-item" style="height: 12rem;" id="line">
                                                                         <p style="word-wrap:break-word;">Date: {{ $appointment->date }} </p>
                                                                         @foreach ($doctors as $doctor)
                                                                             @if($appointment->doctorID == $doctor->id)
@@ -65,7 +65,7 @@
                                                             <ul class="list-group">
                                                                 @foreach($conditions as $condition)
                                                                     @if($appointment->patientID == $patient->id && $condition->appointmentID == $appointment->id)
-                                                                        <li class="list-group-item" style="height: 12rem; border-left: solid #108fc2;">
+                                                                        <li class="list-group-item" style="height: 12rem" id="line">
                                                                             <p style="word-wrap:break-word;">Condition: {{ $condition->condition }}</p>
                                                                             @foreach ($doctors as $doctor)
                                                                                 @if($appointment->doctorID == $doctor->id)

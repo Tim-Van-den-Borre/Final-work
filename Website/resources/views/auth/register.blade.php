@@ -2,17 +2,19 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <br />
-            <x-jet-authentication-card-logo />
+            <a href="/">
+                <img src="{{ URL::to('/images/Logo2.jpg') }}" style="width: 60px; height: 60px; border-radius: 50%;">
+            </a>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('register') }}" >
+        <form method="POST" action="{{ route('register') }}">
             @csrf
 
             <x-jet-label value="{{ __('Register as a patient') }}" style="border-bottom: solid #108fc2;"/>
 
-            <div class="mt-4">
+            <div class="mt-1">
                 <x-jet-label for="name" value="{{ __('Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>

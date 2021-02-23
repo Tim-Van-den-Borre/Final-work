@@ -1,7 +1,9 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a href="/">
+                <img src="{{ URL::to('/images/Logo2.jpg') }}" style="width: 60px; height: 60px; border-radius: 50%;">
+            </a>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">

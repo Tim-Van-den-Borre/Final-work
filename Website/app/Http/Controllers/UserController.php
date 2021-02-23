@@ -47,4 +47,16 @@ class UserController extends Controller
 
         return view('doctors', ['doctors' => $doctors]);
     }
+
+    public function getFile(){
+        $patient = DB::table('users')->where('id', Auth::user()->id)->get();
+
+        $appointments = DB::table('appointments')->orderBy('date', 'desc')->get();
+
+        $doctors = DB::table('users')->where('role', 'Doctor')->get();
+
+        $conditions = DB::table('medical_histories')->get();
+
+        return view('medical-history', ['patient' => $patient[0], 'appointments' => $appointments, 'doctors' => $doctors, 'conditions' => $conditions]);
+    }
 }

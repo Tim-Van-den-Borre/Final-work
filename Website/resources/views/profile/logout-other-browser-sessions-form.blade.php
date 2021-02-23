@@ -1,19 +1,16 @@
-<x-jet-action-section>
+<x-jet-action-section id="line">
     <x-slot name="title">
         {{ __('Browser Sessions') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Manage and logout your active sessions on other browsers and devices.') }}
+        {{ __('Manage and logout your active sessions on other browsers / devices.') }}
     </x-slot>
 
     <x-slot name="content">
-        <div class="max-w-xl text-sm text-gray-600">
-            {{ __('If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.') }}
-        </div>
 
         @if (count($this->sessions) > 0)
-            <div class="mt-5 space-y-6">
+            <div class="mt-0 space-y-6">
                 <!-- Other Browser Sessions -->
                 @foreach ($this->sessions as $session)
                     <div class="flex items-center">
@@ -29,7 +26,7 @@
                             @endif
                         </div>
 
-                        <div class="ml-3">
+                        <div class="ml-1">
                             <div class="text-sm text-gray-600">
                                 {{ $session->agent->platform() }} - {{ $session->agent->browser() }}
                             </div>
@@ -51,7 +48,7 @@
             </div>
         @endif
 
-        <div class="flex items-center mt-5">
+        <div class="flex items-center mt-3">
             <x-jet-button wire:click="confirmLogout" wire:loading.attr="disabled">
                 {{ __('Logout Other Browser Sessions') }}
             </x-jet-button>

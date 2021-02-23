@@ -1,3 +1,11 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+#line {
+    border-left: solid #108fc2;
+}
+
+#bottomline {
+    border-bottom: solid #108fc2;
+}

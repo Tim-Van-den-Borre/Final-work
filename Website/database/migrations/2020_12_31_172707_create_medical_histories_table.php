@@ -16,7 +16,7 @@ class CreateMedicalHistoriesTable extends Migration
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('appointmentID');
-            $table->string('condition');
+            $table->string('condition', 100);
             $table->datetime('date');
             $table->timestamps();
             
