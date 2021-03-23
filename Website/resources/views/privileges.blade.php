@@ -1,12 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Privileges') }}
-        </h2>
+        <h3>{{ __('Privileges') }}</h3>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">
             <div class="mt-8 bg-gray dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-1" id="line">
                     @foreach($users as $user)
@@ -21,7 +19,8 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <form >
+                                    <form method="post" action="{{ route('setPrivilege') }}">
+                                    @csrf
                                         <p class="hidden" value="{{ $user->id }}" id="userID" name="userID"></p>
                                         
                                         <select class="custom-select" id="role" name="role" onchange="this.form.submit()" required>

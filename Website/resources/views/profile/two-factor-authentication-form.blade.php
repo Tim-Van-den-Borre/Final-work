@@ -1,4 +1,4 @@
-<x-jet-action-section id="line">
+<x-jet-action-section id="twoFactorAuthLine">
     <x-slot name="title">
         {{ __('Two Factor Authentication') }}
     </x-slot>

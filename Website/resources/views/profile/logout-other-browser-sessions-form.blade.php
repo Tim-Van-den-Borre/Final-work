@@ -1,4 +1,4 @@
-<x-jet-action-section id="line">
+<x-jet-action-section id="logoutOtherBrowserSessionsLine">
     <x-slot name="title">
         {{ __('Browser Sessions') }}
     </x-slot>

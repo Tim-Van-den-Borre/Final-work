@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'tim.vandenborre@outlook.com',
             'email_verified_at' => now(),
             'password' => bcrypt('$admin123'),
-            'role' => 'Doctor',
+            'role' => 'Admin',
             'remember_token' => Null,
             'created_at' => now(),
             'updated_at' => now()

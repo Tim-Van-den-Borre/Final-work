@@ -21344,6 +21344,136 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+console.log(window.location.href);
+/* app.layout.blade */
+
+if (window.location.href != "http://127.0.0.1:8000/") {
+  document.getElementById("appMenuToggle").addEventListener("click", function (e) {
+    e.preventDefault();
+    var appWrapper = document.getElementById("appWrapper");
+
+    if (appWrapper.classList.contains("toggled")) {
+      appWrapper.classList.remove("toggled");
+    } else {
+      appWrapper.classList.add("toggled");
+    }
+  });
+}
+/* appointments.blade.php */
+
+
+if (window.location.href.includes("appointments")) {
+  var length = 100;
+  var length2 = 100;
+  console.log("it works 1");
+  document.getElementById("appointmentMessageCount").innerHTML = "0 / " + length;
+  console.log("it works2");
+  document.getElementById("appointmentsReason").addEventListener("keyup", function () {
+    var textLength = document.getElementById("appointmentsReason").value.length;
+    var textLengthOver = length - textLength;
+    document.getElementById("appointmentMessageCount").innerHTML = textLength + " / " + length;
+  });
+  console.log("it works 3");
+  $("#appointmentsLiveToast").toast("show");
+  document.getElementById("medicalHistoryCount").innerHTML = "0 / " + length2;
+  console.log("it works 4");
+  document.getElementById("appointmentsCondition").addEventListener("keyup", function () {
+    var textLength2 = document.getElementById("appointmentsCondition").value.length;
+    var textLengthOver2 = length2 - textLength2;
+    document.getElementById("medicalHistoryCount").innerHTML = textLength2 + " / " + length2;
+  });
+  console.log("it works 5");
+}
+/* welcome.blade.php */
+
+
+if (window.location.href == "http://127.0.0.1:8000/") {
+  var openChat = function openChat() {
+    var main = document.getElementById("chatbotCard");
+
+    if (main.style.display === "none") {
+      main.style.display = "block";
+      var button = document.getElementById("chatbotButton");
+      button.innerText = "Close chat";
+      fetch("http://127.0.0.1:5000/firstmessage", {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        showBotMessageOnChat(response);
+      });
+    } else {
+      main.style.display = "none";
+      document.getElementById("chatbotCardBody").innerHTML = ""; //document.querySelector(".card-body").innerHTML = "";
+
+      var _button = document.getElementById("chatbotButton");
+
+      _button.innerText = "Chat with us";
+    }
+  };
+
+  var showUserMessageOnChat = function showUserMessageOnChat(input) {
+    var UserMessage = '<div class="ChatWindow"><p id="chatbotUserMessage">' + input + " </p></div>";
+    document.querySelector(".card-body").innerHTML += UserMessage;
+    document.getElementById("UserMessageInput").value = "";
+    var Body = document.getElementById("chatbotCardBody");
+    Body.scrollTop = Body.scrollHeight;
+  };
+
+  var showBotMessageOnChat = function showBotMessageOnChat(response) {
+    var BotMessage = '<div class="ChatWindow"><p id="chatbotBotMessage">' + response + " </p></div>";
+    document.querySelector(".card-body").innerHTML += BotMessage;
+    var Body = document.getElementById("chatbotCardBody");
+    Body.scrollTop = Body.scrollHeight;
+  };
+
+  var SendUserMessageToApi = function SendUserMessageToApi(message) {
+    fetch("http://127.0.0.1:5000/chat", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({
+        Message: message
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (response) {
+      showBotMessageOnChat(response);
+    });
+  };
+
+  var setMessageCookie = function setMessageCookie($check) {
+    if ($check != false) {
+      document.cookie = "laravel_session_message = Accepted by user;";
+    }
+  };
+
+  /* chatbot */
+  document.getElementById("chatbotButton").addEventListener("click", openChat);
+  document.getElementById("UserMessageInput").addEventListener("keyup", function (e) {
+    var input = document.getElementById("UserMessageInput").value;
+
+    if (e.key === "Enter") {
+      if (input.trim() == "") {
+        e.preventDefault();
+      } else {
+        showUserMessageOnChat(input);
+        SendUserMessageToApi(input);
+        e.preventDefault();
+      }
+    }
+  });
+
+  document.getElementById("welcomeSetCookieMessage").onclick = function () {
+    setMessageCookie(true);
+    this.parentElement.parentElement.parentElement.style.display = "none";
+  };
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

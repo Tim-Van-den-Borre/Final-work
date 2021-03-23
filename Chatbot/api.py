@@ -27,6 +27,19 @@ def post():
     return response
 
 
+@app.route('/firstmessage', methods=['GET'])
+def firstMessage():
+    try:
+        response = jsonify("Hi, my name is Tim. How can i be of service to you?")
+        print(response)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+    except:
+        response = jsonify({"message": "Error has occured"})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+
+    return response
+
+
 if __name__ == '__main__':
     app.run(debug=False)
 

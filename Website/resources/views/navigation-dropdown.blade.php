@@ -5,8 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="/">
-                        <img src="{{ URL::to('/images/Logo2.jpg') }}" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <a href="{{ route('dashboard') }}">
+                        <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
@@ -15,39 +15,6 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-
-                    @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')
-                        <x-jet-nav-link href="{{ route('patients') }}" :active="request()->routeIs('patients')">
-                            {{ __('Patients') }}
-                        </x-jet-nav-link>
-                    @endif
-
-                    @if(Auth::user()->role == 'Admin')
-                        <x-jet-nav-link href="{{ route('doctors') }}" :active="request()->routeIs('doctors')">
-                            {{ __('Doctors') }}
-                        </x-jet-nav-link>
-
-                        <x-jet-nav-link href="{{ route('privileges') }}" :active="request()->routeIs('privileges')">
-                            {{ __('Privileges') }}
-                        </x-jet-nav-link>
-                    @endif
-
-                    @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')
-                        <x-jet-nav-link href="{{ route('appointments') }}" :active="request()->routeIs('appointments')">
-                            {{ __('Appointments') }}
-                        </x-jet-nav-link>
-                    @endif
-
-                    @if(Auth::user()->role == 'Patient')
-                        <x-jet-nav-link href="{{ route('medical-history') }}" :active="request()->routeIs('medical-history')">
-                            {{ __('Medical History') }}
-                        </x-jet-nav-link>
-                    @endif
-                    
-                    <x-jet-nav-link href="{{ route('calender') }}" :active="request()->routeIs('calender')">
-                        {{ __('Calender') }}
-                    </x-jet-nav-link>
-
                 </div>
             </div>
 
@@ -152,38 +119,6 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
-
-            @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')
-                <x-jet-responsive-nav-link href="{{ route('patients') }}" :active="request()->routeIs('patients')">
-                    {{ __('Patients') }}
-                </x-jet-responsive-nav-link>
-            @endif
-
-            @if(Auth::user()->role == 'Admin')
-                <x-jet-responsive-nav-link href="{{ route('doctors') }}" :active="request()->routeIs('doctors')">
-                    {{ __('Doctors') }}
-                </x-jet-responsive-nav-link>
-
-                <x-jet-responsive-nav-link href="{{ route('privileges') }}" :active="request()->routeIs('privileges')">
-                    {{ __('Privileges') }}
-                </x-jet-responsive-nav-link>
-            @endif
-
-            @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')  
-                <x-jet-responsive-nav-link href="{{ route('appointments') }}" :active="request()->routeIs('appointments')">
-                    {{ __('Appointments') }}
-                </x-jet-responsive-nav-link>
-            @endif
-
-            @if(Auth::user()->role == 'Patient')
-                <x-jet-responsive-nav-link href="{{ route('medical-history') }}" :active="request()->routeIs('medical-history')">
-                    {{ __('Medical History') }}
-                </x-jet-responsive-nav-link>
-            @endif
-
-            <x-jet-responsive-nav-link href="{{ route('calender') }}" :active="request()->routeIs('calender')">
-                {{ __('Calender') }}
             </x-jet-responsive-nav-link>
         </div>
 

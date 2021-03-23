@@ -12,17 +12,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Middleware\VerifyRoleAdmin;
 use App\Http\Middleware\VerifyRoleDoctorOrAdmin;
 use App\Http\Middleware\VerifyRolePatient;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Middleware\VerifyRolePatientOrDoctorOrAdmin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -63,11 +53,13 @@ Route::get('/medical-history', [UserController::class, 'getFile'])->name('medica
 // Auth Doctor & Admin
 Route::get('/patients', [UserController::class, 'getPatients'])->name('patients')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
 
-Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
+Route::get('/appointments', [AppointmentController::class, 'getAppointments'])->name('appointments')->middleware('auth', VerifyRolePatientOrDoctorOrAdmin::class);
 
-Route::post('/create-appointment', [AppointmentController::class, 'createAppointment'])->name('create-appointment')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
+Route::post('/create-appointment', [AppointmentController::class, 'createAppointment'])->name('create-appointment')->middleware('auth', VerifyRolePatientOrDoctorOrAdmin::class);
 
-Route::post('/create-medicalhistory', [AppointmentController::class, 'createMedicalhistory'])->name('create-medicalhistory')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
+Route::post('/create-medicalhistory', [AppointmentController::class, 'createMedicalhistory'])->name('create-medicalhistory')->middleware('auth', VerifyRolePatientOrDoctorOrAdmin::class);
+
+
 
 // Auth Admin
 Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors')->middleware('auth', VerifyRoleAdmin::class);

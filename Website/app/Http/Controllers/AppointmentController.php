@@ -24,35 +24,55 @@ class AppointmentController extends Controller
     }
 
     public function createAppointment(Request $request){
+        if(Auth::user()->role == 'Patient'){
+            $this->validate($request, [
+                'doctor' => 'required',
+                'appointmentsReason' => 'required',
+                'date' => 'required'
+            ]);
+            
+            $appointment = new Appointment();
+            $appointment->patientID = Auth::user()->id;
+            $appointment->doctorID =  $request->input('doctor');
+            $appointment->reason = $request->input('appointmentsReason');
+            $appointment->date = $request->input('date');
+    
+            $user = DB::table('users')->where('id', $appointment->doctorID)->get();
+    
+            $appointment->save();
+            return redirect()->route('appointments')->with('appointmentalert', $user[0]->name);
+        }
 
-        $this->validate($request, [
-            'patient' => 'required',
-            'reason' => 'required',
-            'date' => 'required'
-        ]);
+        if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor'){
+            $this->validate($request, [
+                'patient' => 'required',
+                'appointmentsReason' => 'required',
+                'date' => 'required'
+            ]);
 
-        $appointment = new Appointment();
-        $appointment->patientID = $request->input('patient');
-        $appointment->doctorID = Auth::user()->id; 
-        $appointment->reason = $request->input('reason');
-        $appointment->date = $request->input('date');
-
-        $user = DB::table('users')->where('id', $appointment->patientID)->get();
-
-        $appointment->save();
-        return redirect()->route('appointments')->with('appointmentalert', $user[0]->name);
+            $appointment = new Appointment();
+            $appointment->patientID = $request->input('patient');
+            $appointment->doctorID = Auth::user()->id; 
+            $appointment->reason = $request->input('appointmentsReason');
+            $appointment->date = $request->input('date');
+    
+            $user = DB::table('users')->where('id', $appointment->patientID)->get();
+    
+            $appointment->save();
+            return redirect()->route('appointments')->with('appointmentalert', $user[0]->name);
+        }
     }
 
     public function createMedicalhistory(Request $request){
         $this->validate($request, [
             'appointmentID' => 'required',
-            'condition' => 'required',
+            'appointmentsCondition' => 'required',
             'medicalHistoryDate' => 'required'
         ]);
 
         $history = new MedicalHistory();
         $history->appointmentID = $request->input('appointmentID');
-        $history->condition = $request->input('condition');
+        $history->condition = $request->input('appointmentsCondition');
         $history->date = $request->input('medicalHistoryDate');
 
         $history->save();
