@@ -10,8 +10,7 @@
 #requestPrivacyPolicyLine,
 #twoFactorAuthLine,
 #updatePasswordLine,
-#updateProfileInformationLine,
-#welcomeCard {
+#updateProfileInformationLine {
     border-left: solid #108fc2;
 }
 
@@ -30,7 +29,7 @@
 }
 
 #appMenuHeaderImage {
-    width: 200px;
+    width: 170px;
 }
 
 #appMenu #appMenuHeader {
@@ -94,8 +93,9 @@
 }
 
 /* welcome.blade.php */
-#welcomeLinks {
-    color: white;
+
+#welcomeNavigation {
+    z-index: 900;
 }
 
 .welcomeHeader {
@@ -104,7 +104,7 @@
     text-align: center;
     color: #fff;
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-        url("/images/cover.jpg");
+        url("/images/Cover.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -112,12 +112,10 @@
     background-attachment: scroll;
     background-position: center center;
     background-size: cover;
-    font-style: italic;
 }
 
 .welcomeHeader .welcomeHeaderTitle {
     font-size: 1.5rem;
-    font-style: italic;
     line-height: 1.5rem;
     margin-bottom: 25px;
 }
@@ -153,6 +151,7 @@
 .footer {
     text-align: center;
     font-size: 0.9rem;
+    background-color: #373b40;
 }
 
 #welcomeCookieCard {
@@ -174,12 +173,14 @@
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 999;
 }
 
 #welcomeOverlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     animation: showBlock 0s 0.5s forwards;
     visibility: hidden;
+    z-index: 999;
 }
 
 @keyframes showBlock {
@@ -197,19 +198,40 @@
     text-decoration: underline;
 }
 
-#welcomeServices,
-#welcomeContact,
-#welcomePackages {
-    margin: 0 auto;
-    padding: 3rem;
-    font-style: italic;
+#welcomeInputTextArea {
+    resize: none;
 }
 
-#welcomeCard {
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
-    border-radius: 0;
+#welcomePricingCard {
+    border: none;
+    border-radius: 1rem;
+    transition: all 0.2s;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+#welcomePricingPrice {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.period {
+    font-size: 0.8rem;
+}
+
+.pricing ul li {
+    margin-bottom: 1rem;
+}
+
+.text-muted {
+    opacity: 0.7;
+}
+
+@media (min-width: 992px) {
+    .pricing .card:hover {
+        margin-top: -0.25rem;
+        margin-bottom: 0.25rem;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+    }
 }
 
 /* chatbot */
@@ -230,7 +252,6 @@
     position: fixed;
     bottom: 40px;
     right: 40px;
-    border-radius: 20px;
     cursor: pointer;
 }
 
@@ -281,7 +302,7 @@
 
 /* appointments.blade.php */
 #appointmentsToast {
-    z-index: 5;
+    z-index: 950;
     right: 0;
     bottom: 0;
 }

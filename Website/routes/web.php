@@ -59,6 +59,9 @@ Route::post('/create-appointment', [AppointmentController::class, 'createAppoint
 
 Route::post('/create-medicalhistory', [AppointmentController::class, 'createMedicalhistory'])->name('create-medicalhistory')->middleware('auth', VerifyRolePatientOrDoctorOrAdmin::class);
 
+Route::get('/remove-appointment', [AppointmentController::class, 'removeAppointment'])->name('remove-appointment')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
+
+Route::get('/remove-history', [AppointmentController::class, 'removeHistory'])->name('remove-history')->middleware('auth', VerifyRoleDoctorOrAdmin::class);
 
 
 // Auth Admin

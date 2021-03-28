@@ -1,7 +1,7 @@
 <div id="appWrapper" class="d-flex">
     <div id="appMenu" class="bg-light border-right">
         <div id="appMenuHeader">
-            <img id="appMenuHeaderImage" src="{{ URL::to('/images/Logo4.png') }}" />
+            <img id="appMenuHeaderImage" src="{{ URL::to('/images/Logo5.png') }}"/>
         </div>
         <div class="list-group list-group-flush">
             @if (Auth::check())
