@@ -21,12 +21,7 @@ class PrivilegeController extends Controller
             'role' => 'required'
         ]);
 
-        error_log($request->input('role'));
-        error_log($request->input('userID'));
-
-        $user = DB::table('users')->where('id', $request->input('userID'))->get();
-
-        error_log($request->input($user));
+        $user = DB::table('users')->find($request->input('userID'));
 
         $user->role = $request->input('role');
 

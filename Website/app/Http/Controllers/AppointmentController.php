@@ -18,11 +18,9 @@ class AppointmentController extends Controller
 
         $doctors = DB::table('users')->where('role', 'Doctor')->get();
 
-        $conditions = DB::table('medical_histories')->get();
-
         $histories = DB::table('medical_histories')->get();
 
-        return view('appointments', ['patients' => $patients, 'appointments' => $appointments, 'doctors' => $doctors, 'conditions' => $conditions, 'histories' => $histories]);
+        return view('appointments', ['patients' => $patients, 'appointments' => $appointments, 'doctors' => $doctors, 'histories' => $histories]);
     }
 
     public function createAppointment(Request $request){
@@ -109,5 +107,23 @@ class AppointmentController extends Controller
         $history = DB::table('medical_histories')->where('id', $request->input('historyID'))->delete();
 
         return redirect()->route('appointments')->with('historyRemoved', 'removed');
+    }
+
+    public function editAppointment(Request $request){
+        $this->validate($request, [
+            'appointmentID' => 'required',
+            'appointmentsReason' => 'required',
+            'date' => 'required'
+        ]);
+
+        $appointment = Appointment::find($request->input('appointmentID'));
+        $appointment->doctorID = Auth::user()->id; 
+        $appointment->reason = $request->input('appointmentsReason');
+        $appointment->date = $request->input('date');
+
+        $user = DB::table('users')->where('id', $appointment->patientID)->get();
+
+        $appointment->save();
+        return redirect()->route('appointments')->with('editappointmentalert', $user[0]->name);
     }
 }
