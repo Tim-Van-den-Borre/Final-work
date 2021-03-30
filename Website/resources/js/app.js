@@ -21,10 +21,8 @@ if (window.location.href != "http://127.0.0.1:8000/") {
 if (window.location.href.includes("appointments")) {
     let length = 100;
     let length2 = 100;
-    console.log("it works 1");
     document.getElementById("appointmentMessageCount").innerHTML =
         "0 / " + length;
-    console.log("it works2");
     document
         .getElementById("appointmentsReason")
         .addEventListener("keyup", function() {
@@ -35,10 +33,7 @@ if (window.location.href.includes("appointments")) {
             document.getElementById("appointmentMessageCount").innerHTML =
                 textLength + " / " + length;
         });
-    console.log("it works 3");
-    $("#appointmentsLiveToast").toast("show");
     document.getElementById("medicalHistoryCount").innerHTML = "0 / " + length2;
-    console.log("it works 4");
     document
         .getElementById("appointmentsCondition")
         .addEventListener("keyup", function() {
@@ -49,7 +44,7 @@ if (window.location.href.includes("appointments")) {
             document.getElementById("medicalHistoryCount").innerHTML =
                 textLength2 + " / " + length2;
         });
-    console.log("it works 5");
+    $("#appointmentsLiveToast").toast("show");
 }
 
 /* welcome.blade.php */
@@ -65,9 +60,6 @@ if (window.location.href == "http://127.0.0.1:8000/") {
         if (main.style.display === "none") {
             main.style.display = "block";
 
-            let button = document.getElementById("chatbotButton");
-            button.innerText = "Close chat";
-
             fetch("http://127.0.0.1:5000/firstmessage", {
                 method: "get",
                 headers: {
@@ -80,11 +72,8 @@ if (window.location.href == "http://127.0.0.1:8000/") {
                 });
         } else {
             main.style.display = "none";
-            document.getElementById("chatbotCardBody").innerHTML = "";
-            //document.querySelector(".card-body").innerHTML = "";
-
-            let button = document.getElementById("chatbotButton");
-            button.innerText = "Chat with us";
+            document.getElementsByClassName("ChatWindow").innerHTML = "";
+            document.querySelector(".ChatWindow").innerHTML = "";
         }
     }
 
@@ -104,12 +93,9 @@ if (window.location.href == "http://127.0.0.1:8000/") {
         });
 
     function showUserMessageOnChat(input) {
-        let UserMessage =
-            '<div class="ChatWindow"><p id="chatbotUserMessage">' +
-            input +
-            " </p></div>";
+        let UserMessage = '<p id="chatbotUserMessage">' + input + " </p>";
 
-        document.querySelector(".card-body").innerHTML += UserMessage;
+        document.querySelector(".ChatWindow").innerHTML += UserMessage;
         document.getElementById("UserMessageInput").value = "";
 
         let Body = document.getElementById("chatbotCardBody");
@@ -117,11 +103,8 @@ if (window.location.href == "http://127.0.0.1:8000/") {
     }
 
     function showBotMessageOnChat(response) {
-        let BotMessage =
-            '<div class="ChatWindow"><p id="chatbotBotMessage">' +
-            response +
-            " </p></div>";
-        document.querySelector(".card-body").innerHTML += BotMessage;
+        let BotMessage = '<p id="chatbotBotMessage">' + response + " </p>";
+        document.querySelector(".ChatWindow").innerHTML += BotMessage;
 
         let Body = document.getElementById("chatbotCardBody");
         Body.scrollTop = Body.scrollHeight;

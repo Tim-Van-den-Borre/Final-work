@@ -199,15 +199,16 @@
         ?>
     </div>
     <div class="row">
-        <button id="chatbotButton" type="button" class="btn btn-outline-info btn-sm">Chat with us</button>
+        <button id="chatbotButton" type="button" class="btn btn-outline-info btn-sm"></button>
         <div id="chatbotChatWindow">
             <div class="card" id="chatbotCard" style="display: none;">
-                <div id="chatbotHeader"><p>Appointment Bot</p></div>
+                <div id="chatbotHeader"><p>Appointment bot</p></div>
                 <div id="chatbotCardBody" class="card-body">
                     <div class="ChatWindow"></div>
                 </div>  
-                <div class="card-footer">
+                <div class="card-footer d-flex flex-row justify-content-between">
                     <input type="text" class="form-control" id="UserMessageInput" placeholder="Enter your message">
+                    <button class="btn btn-primary" id="UserMessageButton"><i class="bi bi-arrow-right-square-fill"></i></button>
                 </div>
             </div>
         </div>

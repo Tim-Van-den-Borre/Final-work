@@ -242,7 +242,7 @@
                                                         <i class="bi bi-plus-circle"></i>
                                                     </button>
                                                     <div class="modal fade" id="staticCreateHistory{{ $appointment->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticCreateHistoryLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-xl">
+                                                        <div class="modal-dialog modal-sm">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                             <h5 class="modal-title" id="staticCreateHistoryLabel">Create Medical History - {{ $patient->name }}</h5>
@@ -301,11 +301,11 @@
                                                                     </div>
                                                                     <div class="modal-body">                                            
                                                                         <div class="form-row">
-                                                                            <div class="col-md-4 mb-12">
+                                                                            <div class="col-md-6 mb-12">
                                                                                 <label for="doctor">Condition</label>
                                                                                 <input type="text" class="form-control" value="{{ $history->condition }}" disabled>
                                                                             </div>
-                                                                            <div class="col-md-4 mb-12">
+                                                                            <div class="col-md-6 mb-12">
                                                                                 <label for="doctor">Date</label>
                                                                                 <input type="text" class="form-control" value="{{ $history->date }}" disabled>
                                                                             </div>                                       
@@ -331,7 +331,7 @@
                                                             <i class="bi bi-plus-circle"></i>
                                                         </button>
                                                         <div class="modal fade" id="staticCreateHistory{{ $appointment->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticCreateHistoryLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-xl">
+                                                            <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                 <h5 class="modal-title" id="staticCreateHistoryLabel">Create Medical History - {{ $patient->name }}</h5>
@@ -379,7 +379,7 @@
                                                     <i class="bi bi-pencil"></i>
                                                 </button>
                                                 <div class="modal fade" id="staticBackdrop{{ $appointment->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-xl">
+                                                    <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                         <h5 class="modal-title" id="staticBackdropLabel">Edit Appointment for {{ $patient->name }}</h5>
@@ -394,7 +394,7 @@
                                                                 <div class="form-row">
                                                                     <input type="hidden" class="form-control" id="appointmentID" name="appointmentID" value="{{ $appointment->id }}">
                                 
-                                                                    <div class="col-md-4 mb-12">
+                                                                    <div class="col-md-12 mb-12">
                                                                         <label for="date">Date</label>
                                                                         <input class="form-control" type="datetime-local" id="date" name="date" required>
                                                                     </div>

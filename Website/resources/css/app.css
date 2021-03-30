@@ -242,8 +242,15 @@
     display: table;
 }
 
+.ChatWindow {
+    height: 100%;
+    width: 99%;
+    overflow-y: scroll;
+    padding: 1.5rem;
+}
+
 #chatbotCard {
-    border: 1px solid white;
+    border: 1px solid black;
     width: 21rem;
     border-radius: 15px;
 }
@@ -253,6 +260,12 @@
     bottom: 40px;
     right: 40px;
     cursor: pointer;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    background: url("/images/Logo3.png") center center;
+    background-size: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 #chatbotButton:click + div {
@@ -285,12 +298,25 @@
     font-size: 12px;
     word-wrap: break-word;
 }
+#UserMessageInput {
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+#UsermessageButton {
+    border-radius: 0 0.25rem 0.25rem 0;
+}
 
 #chatbotHeader {
     background-color: #108fc2;
     text-align: center;
     border-radius: 15px 15px 0px 0px;
-    padding: 3px;
+    padding: 1rem;
+}
+
+#chatbotHeader p {
+    margin: 0 !important;
+    font-weight: bold;
+    color: #eee;
 }
 
 #chatbotCardBody {
@@ -298,6 +324,7 @@
     width: 21rem;
     overflow-y: hidden;
     transition: 0.2s;
+    padding: 0 !important;
 }
 
 /* appointments.blade.php */
