@@ -24,10 +24,6 @@
                         <a id="appMenuLink" class="list-group-item list-group-item-action bg-light" href="{{ route('doctors') }}" :active="request()->routeIs('doctors')">
                             {{ __('Doctors') }}
                         </a>
-
-                        <a id="appMenuLink" class="list-group-item list-group-item-action bg-light" href="{{ route('privileges') }}" :active="request()->routeIs('privileges')">
-                            {{ __('Privileges') }}
-                        </a>
                     @endif
 
                     @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor' || Auth::user()->role == 'Patient')

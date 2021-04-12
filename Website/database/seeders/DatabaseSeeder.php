@@ -30,39 +30,39 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now()
         ]);
 
-        \App\Models\User::factory(9)->create();
+        \App\Models\User::factory(300)->create();
 
         DB::table('appointments')->insert([
             'patientID' => 2,
             'doctorID' => 1,
             'reason' => 'Pain in my head.',
-            'date' => '2021-02-03 09:00:00'
+            'date' => '2022-02-03 09:00:00'
         ]);
 
         DB::table('appointments')->insert([
             'patientID' => 2,
             'doctorID' => 1,
             'reason' => 'Pain in my throat.',
-            'date' => '2021-02-04 10:00:00'
+            'date' => '2022-02-04 10:00:00'
         ]);
 
         DB::table('appointments')->insert([
             'patientID' => 2,
             'doctorID' => 1,
             'reason' => 'Corona test.',
-            'date' => '2021-02-05 10:30:00'
+            'date' => '2022-02-05 10:30:00'
         ]);
 
         DB::table('medical_histories')->insert([
             'appointmentID' => 1,
             'condition' => 'Migraine',
-            'date' => '2021-02-03 09:30:00'
+            'date' => '2022-02-03 09:30:00'
         ]);
 
         DB::table('medical_histories')->insert([
             'appointmentID' => 3,
             'condition' => 'Corona',
-            'date' => '2021-02-05 11:00:00'
+            'date' => '2022-02-05 11:00:00'
         ]);
 
         DB::table('users')->insert([

@@ -7,6 +7,7 @@ use DB;
 use Auth;
 use App\Models\Appointment;
 use App\Models\MedicalHistory;
+use DateTime;
 
 class AppointmentController extends Controller
 {
@@ -14,7 +15,9 @@ class AppointmentController extends Controller
 
         $patients = DB::table('users')->where('role', 'Patient')->get();
 
-        $appointments = DB::table('appointments')->orderBy('date', 'desc')->get();
+        $today = new DateTime();
+
+        $appointments = DB::table('appointments')->where('date', '>=', $today)->orderBy('date', 'desc')->get();
 
         $doctors = DB::table('users')->where('role', 'Doctor')->get();
 
@@ -23,7 +26,18 @@ class AppointmentController extends Controller
         return view('appointments', ['patients' => $patients, 'appointments' => $appointments, 'doctors' => $doctors, 'histories' => $histories]);
     }
 
-    public function createAppointment(Request $request){
+    public function chatbotCreateAppointment(Request $request){
+        $appointment = new Appointment();
+        $appointment->patientID = $request->input('patient');
+        $appointment->doctorID =  $request->input('doctor');
+        $appointment->reason = $request->input('reason'); 
+        $appointment->date = $request->input('date');
+
+        $appointment->save();
+        return response(Auth::user()->id, 200);
+    }
+
+    public function createAppointment(Request $request){        
         if(Auth::user()->role == 'Patient'){
             $this->validate($request, [
                 'doctor' => 'required',
@@ -34,7 +48,7 @@ class AppointmentController extends Controller
             $appointment = new Appointment();
             $appointment->patientID = Auth::user()->id;
             $appointment->doctorID =  $request->input('doctor');
-            $appointment->reason = $request->input('appointmentsReason');
+            $appointment->reason = $request->input('appointmentsReason'); 
             $appointment->date = $request->input('date');
     
             $user = DB::table('users')->where('id', $appointment->doctorID)->get();

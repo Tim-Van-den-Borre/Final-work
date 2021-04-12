@@ -99,8 +99,8 @@
         </div>
     @endif
     @if(Auth::user()->role == 'Patient')
-    <div class="max-w-7xl mx-auto pt-10 sm:px-6 lg:px-8">
-        <div class="col-md-12 mb-12">
+    <div class="py-12">
+        <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">
             <div class="row">
                 <div class="col-12">
                     <p id="bottomline">Create an appointment</p>
@@ -157,66 +157,77 @@
                 </div>
             </form>
         </div>
-</div>
+    </div>
     @endif
         @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')
 
-            <div class="max-w-7xl mx-auto pt-10 sm:px-6 lg:px-8">
-                <div class="col-md-12 mb-12">
-                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#staticBackdrop">
-                        Create Appointment
-                      </button>
-                      
-                      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="staticBackdropLabel">Create Appointment</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+    <div class="py-12">
+        <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">
+                    <div class="row">
+                        <div class="col-3">
+                            <input class="form-control" id="myInput" type="text" placeholder="Search...">
+                        </div>
+                        <div class="col-7"></div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#staticBackdrop">
+                                Create Appointment
                               </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="{{ route('create-appointment') }}">
-                                    @csrf
-                                    <div class="form-row">
-                                            <div class="col-md-4 mb-12">
-                                                <label for="patient">Patient</label>
-                                                <select class="custom-select" id="patient" name="patient" required>
-                                                    <option value="">Choose...</option>
-                                                    @foreach($patients as $patient)
-                                                        <option value="{{ $patient->id }}">{{ $patient->name }}</option>
-                                                    @endforeach
-                                                </select>
+        
+                              <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="staticBackdropLabel">Create Appointment</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <x-jet-label style="border-bottom: solid #108fc2;"/>
+                                        <form method="POST" action="{{ route('create-appointment') }}">
+                                            @csrf
+                                            <div class="form-row">
+                                                    <div class="col-md-4 mb-12">
+                                                        <label for="patient">Patient</label>
+                                                        <select class="custom-select" id="patient" name="patient" required>
+                                                            <option value="">Choose...</option>
+                                                            @foreach($patients as $patient)
+                                                                <option value="{{ $patient->id }}">{{ $patient->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 mb-12">
+                                                        <label for="doctor">Doctor</label>
+                                                        <input type="text" class="form-control" id="doctor" name="doctor" value="{{ Auth::user()->name }}" disabled>
+                                                    </div>
+                                                <div class="col-md-4 mb-12">
+                                                    <label for="date">Date</label>
+                                                    <input class="form-control" type="datetime-local" id="date" name="date" required>
+                                                </div>
                                             </div>
-                                            <div class="col-md-4 mb-12">
-                                                <label for="doctor">Doctor</label>
-                                                <input type="text" class="form-control" id="doctor" name="doctor" value="{{ Auth::user()->name }}" disabled>
+                                            <div class="form-row">
+                                                <div class="col-md-12 mb-12">
+                                                    <label for="appointmentsReason">Reason</label>
+                                                    <textarea class="form-control" id="appointmentsReason" name="appointmentsReason" placeholder="Reason for the visit" rows="3" maxlength="100" required></textarea>
+                                                    <p id="appointmentMessageCount" style="text-align: right; font-size: 12px;"></p>
+                                                </div>
                                             </div>
-                                        <div class="col-md-4 mb-12">
-                                            <label for="date">Date</label>
-                                            <input class="form-control" type="datetime-local" id="date" name="date" required>
-                                        </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12 mb-6">
+                                                    <button class="btn btn-sm btn-primary" type="submit">Save Appointment</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <x-jet-label style="border-bottom: solid #108fc2;"/>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-12">
-                                            <label for="appointmentsReason">Reason</label>
-                                            <textarea class="form-control" id="appointmentsReason" name="appointmentsReason" placeholder="Reason for the visit" rows="3" maxlength="100" required></textarea>
-                                            <p id="appointmentMessageCount" style="text-align: right; font-size: 12px;"></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-12 mb-6">
-                                            <button class="btn btn-sm btn-primary" type="submit">Save Appointment</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                  </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 mb-12">
+                    
+                    <br />
+           
                     <table class="table" style="text-align: center;">
                         <thead class="thead-dark">
                           <tr>
@@ -228,7 +239,7 @@
                             <th scope="col">Remove</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
                             @foreach($appointments as $appointment)
                                 @foreach($patients as $patient)
                                     @if($appointment->patientID == $patient->id)
@@ -419,11 +430,34 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <form action="{{ route('remove-appointment')}}" method="get">
-                                                    <input type="hidden" id="appointmentID" name="appointmentID" value="{{ $appointment->id }}">
-                                                    <input type="hidden" id="patientID" name="patientID" value="{{ $appointment->patientID }}">
-                                                    <button type="submit" class="btn btn-danger btn-sm">X</button>
-                                                </form>
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdropRemove{{ $appointment->id }}">X</button>                            
+
+                                                <div class="modal fade" id="staticBackdropRemove{{ $appointment->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelRemove" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabelRemove">Remove appointment of {{ $patient->name }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to remove the appointment for {{ $patient->name }}?</p>
+                                                            
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                    
+                                                            <form action="{{ route('remove-appointment')}}" method="get">
+                                                                <input type="hidden" id="appointmentID" name="appointmentID" value="{{ $appointment->id }}">
+                                                                <input type="hidden" id="patientID" name="patientID" value="{{ $appointment->patientID }}">
+                                                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                 
                                             </td>
                                           </tr>
                                     @endif
@@ -431,7 +465,17 @@
                             @endforeach
                         </tbody>
                       </table>
-                </div>
+             
             </div>
+            <script>
+                $(document).ready(function(){
+                  $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                  });
+                });
+                </script>
             @endif
 </x-app-layout>

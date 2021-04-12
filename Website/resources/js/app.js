@@ -16,6 +16,10 @@ if (window.location.href != "http://127.0.0.1:8000/") {
             }
         });
 }
+/* doctors.blade.php */
+if (window.location.href.includes("doctors")) {
+    $("#doctorsLiveToast").toast("show");
+}
 
 /* appointments.blade.php */
 if (window.location.href.includes("appointments")) {
@@ -53,8 +57,9 @@ if (window.location.href == "http://127.0.0.1:8000/") {
     document
         .getElementById("chatbotButton")
         .addEventListener("click", openChat);
-
+    let data;
     function openChat() {
+        data = { patient: "", doctor: "", reason: "", date: "", time: "" };
         let main = document.getElementById("chatbotCard");
 
         if (main.style.display === "none") {
@@ -111,18 +116,39 @@ if (window.location.href == "http://127.0.0.1:8000/") {
     }
 
     function SendUserMessageToApi(message) {
+        fetch("http://127.0.0.1:8000/api/chatbotGetUserId", {
+            method: "get",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        })
+            .then(response => response.json())
+            .then(response => {
+                GetResponseFromChatbot(response, message);
+            });
+    }
+
+    function GetResponseFromChatbot(userID, message) {
         fetch("http://127.0.0.1:5000/chat", {
             method: "post",
             headers: {
                 "Content-Type": "application/json; charset=utf-8"
             },
             body: JSON.stringify({
-                Message: message
+                Message: message,
+                UserID: userID,
+                Data: data
             })
         })
             .then(response => response.json())
             .then(response => {
-                showBotMessageOnChat(response);
+                console.log(response);
+                showBotMessageOnChat(response.message);
+                data.patient = response.patient;
+                data.doctor = response.doctor;
+                data.reason = response.reason;
+                data.date = response.date;
+                data.time = response.time;
             });
     }
 

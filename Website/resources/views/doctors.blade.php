@@ -3,26 +3,193 @@
         <h3>{{ __('Doctors') }}</h3>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">
-            <div class="mt-8 bg-gray dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                <div class="grid grid-cols-1 md:grid-cols-4" id="line">
-                    @foreach($doctors as $doctor)
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">{{ $doctor->name }}</div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                   <p>Email: {{ $doctor->email}}</p>
-                                   <p>Phone: {{ $doctor->phonenumber}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+    @if (session('doctorRemoved'))
+        <div id="doctorsToast" class="position-fixed bottom-0 right-0 p-3">
+            <div id="doctorsLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                <div class="toast-header">
+                <strong class="mr-auto">Appointment Manager</strong>
+                <small>Just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="toast-body">
+                        Doctor <b>{{ session('doctorRemoved') }}</b> has been removed successfully.
                 </div>
             </div>
+        </div>
+    @endif
+    
+    @if (session('doctorCreated'))
+    <div id="doctorsToast" class="position-fixed bottom-0 right-0 p-3">
+        <div id="doctorsLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+            <div class="toast-header">
+            <strong class="mr-auto">Appointment Manager</strong>
+            <small>Just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="toast-body">
+                    Doctor <b>{{ session('doctorCreated') }}</b> has been created successfully.
+            </div>
+        </div>
+    </div>
+@endif
+
+    <div class="py-12">
+        <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">
+            <div class="row">
+                <x-jet-validation-errors class="mb-4" />
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" id="myInput" type="text" placeholder="Search...">
+                </div>
+                <div class="col-7"></div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#staticBackdrop">
+                        Add Doctor
+                      </button>
+
+                      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Add Doctor</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <x-jet-label style="border-bottom: solid #108fc2;"/>
+                                
+                                <form method="POST" action="{{ route('registerDoctor') }}">
+                                    @csrf
+                        
+                                    <div class="mt-1">
+                                        <x-jet-label for="name" value="{{ __('Name') }}" />
+                                        <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                                    </div>
+                        
+                                    <div class="mt-4">
+                                        <x-jet-label for="email" value="{{ __('Email') }}" />
+                                        <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                                    </div>
+                        
+                                    <div class="mt-4">
+                                        <x-jet-label for="birthdate" value="{{ __('Birthdate') }}" />
+                                        <x-jet-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required />
+                                    </div>
+                        
+                                    <div class="mt-4">
+                                        <x-jet-label for="phonenumber" value="{{ __('Phone (format: 0999 99 99 99)') }}" />
+                                        <x-jet-input id="phonenumber" class="block mt-1 w-full" type="tel" name="phonenumber" pattern="[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}" :value="old('phonenumber')" required />
+                                    </div>
+                        
+                                    <div class="mt-4">
+                                        <x-jet-label for="password" value="{{ __('Password') }}" />
+                                        <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                                    </div>
+                        
+                                    <div class="mt-4">
+                                        <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                                        <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                                    </div>
+                        
+                                    <div class="flex items-center justify-end mt-4">                        
+                                        <x-jet-button class="ml-4">
+                                            {{ __('Add') }}
+                                        </x-jet-button>
+                                    </div>
+                                    <br />
+                                    <x-jet-label style="border-bottom: solid #108fc2;"/>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <br />
+            <table class="table" style="text-align: center;">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                    @foreach($doctors as $doctor)
+                    <tr>
+                        <td>{{ $doctor->name }}</td>
+                        <td>{{ $doctor->email}}</td>
+                        <td>{{ $doctor->phonenumber}}</td>
+                        <td>{{ $doctor->role}}</td>
+                        <td>
+                            <form method="post" action="{{ route('setPrivilege') }}">
+                                @csrf
+                                    <p class="hidden" value="{{ $doctor->id }}" id="userID" name="userID"></p>
+                                    
+                                    <select class="custom-select" id="role" name="role" onchange="this.form.submit()" required>
+                                        <option value="">Choose...</option>
+                                        <option value="Patient">Patient</option>
+                                        <option value="Doctor">Doctor</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                </form>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdropRemove{{ $doctor->id }}">X</button>                            
+
+                            <div class="modal fade" id="staticBackdropRemove{{ $doctor->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelRemove" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabelRemove">Remove {{ $doctor->name }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to remove {{ $doctor->name }}?</p>
+                                        <br />
+                                        <p style="color: red;">Removing the doctor will remove their appointments and their medical histories!</p>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+
+                                        <form action="{{ route('remove-doctor')}}" method="get">
+                                            <input type="hidden" id="doctorID" name="doctorID" value="{{ $doctor->id }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+          
+          <script>
+          $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+          </script>
         </div>
     </div>
 </x-app-layout>

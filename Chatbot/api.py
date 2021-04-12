@@ -2,7 +2,7 @@ from main import chat
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 from flask_cors import CORS
-
+import requests
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
@@ -12,13 +12,20 @@ api = Api(app)
 def get():
     return request.get_json()
 
+@app.route('/postUserId', methods=['POST'])
+def postUserId():
+    data = request.get_json()
+    return data
+
 
 @app.route('/chat', methods=['POST'])
 def post():
     try:
         data = request.get_json()
         print(data)
-        response = jsonify(chat(data["Message"]))
+        response = jsonify({"patient": data["UserID"], "doctor": 1, "reason": "niks", "date": "20/09/2021", "hour": "13:30",
+                            "message": chat(data["Message"])})
+
         response.headers.add('Access-Control-Allow-Origin', '*')
     except:
         response = jsonify({"message": "Error has occured"})

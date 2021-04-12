@@ -2,6 +2,10 @@
     <x-slot name="header">
         <h3>{{ __('Dashboard') }}</h3>
     </x-slot>
+    <?php
+        session_start();
+        $_SESSION["userID"] = Auth::user()->id;
+    ?>
 
     <div class="py-12">
         <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">

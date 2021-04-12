@@ -50,6 +50,13 @@ def preprocessdata():
         ("Can i have an appointment with doctor Mia next monday?",
          {"entities": [(38, 41, "name_doctor"), (48, 53, "appointment_day")]}),
 
+        # Name Doctor, Appointment day & Appointment hour
+        ("Can i have an appointment with doctor Mia next monday at 9am?",
+         {"entities": [(38, 41, "name_doctor"), (48, 53, "appointment_day"), (58, 60, "appointment_hour")]}),
+
+        ("I would like an appointment with doctor Tim tomorrow at 11am if possible",
+         {"entities": [(41, 43, "name_doctor"), (45, 52, "appointment_day"), (57, 60, "appointment_hour")]}),
+
         # Appointment hour
         ("I would like an appointment at 9am", {"entities": [(32, 34, "appointment_hour")]}),
 

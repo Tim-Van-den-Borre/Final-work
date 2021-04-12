@@ -85,22 +85,22 @@
             <section class="pricing">
                 <div class="container">
                     <div style="text-align: center; padding: 1rem; color: white;">
-                        <h3>Our packages</h3>
+                        <h3>Our lifetime packages</h3>
                     </div>
                     <div class="row">
                         <div class="col-lg-4">
                             <div id="welcomePricingCard" class="card">
                                 <div class="card-body">
                                     <h5 class="card-title text-muted text-uppercase text-center">Basic</h5>
-                                    <h6 id="welcomePricingPrice" class="card-price text-center" style="color: #108fc2">€10<span style="color: black;"class="period">/month</span></h6>
+                                    <h5 id="welcomePricingPrice" class="card-price text-center" style="color: #108fc2">€800</h5>
                                     <hr>
                                     <ul class="fa-ul">
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> 50 Users</li>
-                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Phone / Email Support</li>
+                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Email Support</li>
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Patient Management</li>
-                                        <li class="text-muted"><span class="fa-li"><i class="bi bi-x-circle"></i></span> Appointments</li>
-                                        <li class="text-muted"><span class="fa-li"><i class="bi bi-x-circle"></i></span> Chatbot</li>
+                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Appointments</li>
                                         <li class="text-muted"><span class="fa-li"><i class="bi bi-x-circle"></i></span> Personal Calender</li>
+                                        <li class="text-muted"><span class="fa-li"><i class="bi bi-x-circle"></i></span> Chatbot</li>
                                     </ul>
                                 </div>
                             </div>
@@ -109,15 +109,15 @@
                             <div id="welcomePricingCard" class="card">
                                 <div class="card-body">
                                     <h5 class="card-title text-muted text-uppercase text-center">Pro</h5>
-                                    <h6 id="welcomePricingPrice" class="card-price text-center"style="color: #108fc2">€20<span style="color: black;"class="period">/month</span></h6>
+                                    <h5 id="welcomePricingPrice" class="card-price text-center"style="color: #108fc2">€1100</h5>
                                     <hr>
                                     <ul class="fa-ul">
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> 100 Users</li>
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Phone / Email Support</li>
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Patient Management</li>
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Appointments</li>
+                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Personal Calender</li>
                                         <li class="text-muted"><span class="fa-li"><i class="bi bi-x-circle"></i></span> Chatbot</li>
-                                        <li class="text-muted"><span class="fa-li"><i class="bi bi-x-circle"></i></span> Personal Calender</li>
                                     </ul>
                                 </div>
                             </div>
@@ -126,15 +126,15 @@
                             <div id="welcomePricingCard" class="card">
                                 <div class="card-body">
                                     <h5 class="card-title text-muted text-uppercase text-center">Enterprise</h5>
-                                    <h6 id="welcomePricingPrice" class="card-price text-center"style="color: #108fc2">€40<span style="color: black;"class="period">/month</span></h6>
+                                    <h5 id="welcomePricingPrice" class="card-price text-center"style="color: #108fc2">€1500</h5>
                                     <hr>
                                     <ul class="fa-ul">
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Unlimited Users</li>
-                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Phone / Email Support</li>
+                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Priority Phone / Email Support</li>
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Patient Management</li>
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Appointments</li>
-                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Chatbot</li>
                                         <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Personal Calender</li>
+                                        <li><span class="fa-li"><i class="bi bi-check-circle"></i></span> Chatbot</li>
                                     </ul>
                                 </div>
                             </div>

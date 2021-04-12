@@ -3,8 +3,15 @@
         <h3>{{ __('Patients') }}</h3>
     </x-slot>
 
+
+
     <div class="py-12">
         <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" id="myInput" type="text" placeholder="Search...">
+                </div>
+            </div>
             <div class="mt-8 bg-gray dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-3" id="line">
                     @foreach($patients as $patient)

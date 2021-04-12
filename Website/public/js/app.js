@@ -21359,6 +21359,12 @@ if (window.location.href != "http://127.0.0.1:8000/") {
     }
   });
 }
+/* doctors.blade.php */
+
+
+if (window.location.href.includes("doctors")) {
+  $("#doctorsLiveToast").toast("show");
+}
 /* appointments.blade.php */
 
 
@@ -21384,6 +21390,13 @@ if (window.location.href.includes("appointments")) {
 
 if (window.location.href == "http://127.0.0.1:8000/") {
   var openChat = function openChat() {
+    data = {
+      patient: "",
+      doctor: "",
+      reason: "",
+      date: "",
+      time: ""
+    };
     var main = document.getElementById("chatbotCard");
 
     if (main.style.display === "none") {
@@ -21421,18 +21434,39 @@ if (window.location.href == "http://127.0.0.1:8000/") {
   };
 
   var SendUserMessageToApi = function SendUserMessageToApi(message) {
+    fetch("http://127.0.0.1:8000/api/chatbotGetUserId", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      }
+    }).then(function (response) {
+      return response.json();
+    }).then(function (response) {
+      GetResponseFromChatbot(response, message);
+    });
+  };
+
+  var GetResponseFromChatbot = function GetResponseFromChatbot(userID, message) {
     fetch("http://127.0.0.1:5000/chat", {
       method: "post",
       headers: {
         "Content-Type": "application/json; charset=utf-8"
       },
       body: JSON.stringify({
-        Message: message
+        Message: message,
+        UserID: userID,
+        Data: data
       })
     }).then(function (response) {
       return response.json();
     }).then(function (response) {
-      showBotMessageOnChat(response);
+      console.log(response);
+      showBotMessageOnChat(response.message);
+      data.patient = response.patient;
+      data.doctor = response.doctor;
+      data.reason = response.reason;
+      data.date = response.date;
+      data.time = response.time;
     });
   };
 
@@ -21444,6 +21478,7 @@ if (window.location.href == "http://127.0.0.1:8000/") {
 
   /* chatbot */
   document.getElementById("chatbotButton").addEventListener("click", openChat);
+  var data;
   document.getElementById("UserMessageInput").addEventListener("keyup", function (e) {
     var input = document.getElementById("UserMessageInput").value;
 
