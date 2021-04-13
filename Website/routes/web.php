@@ -67,10 +67,10 @@ Route::get('/remove-history', [AppointmentController::class, 'removeHistory'])->
 
 
 // Auth Admin
-Route::get('/doctors', [UserController::class, 'getDoctors'])->name('doctors')->middleware('auth', VerifyRoleAdmin::class);
+Route::get('/users', [UserController::class, 'getUsers'])->name('users')->middleware('auth', VerifyRoleAdmin::class);
 
-Route::get('/remove-doctor', [UserController::class, 'removeDoctor'])->name('remove-doctor')->middleware('auth', VerifyRoleAdmin::class);
+Route::get('/remove-user', [UserController::class, 'removeUser'])->name('remove-user')->middleware('auth', VerifyRoleAdmin::class);
 
 Route::post('/setPrivilege', [UserController::class, 'setPrivilege'])->name('setPrivilege')->middleware('auth', VerifyRoleAdmin::class);
 
-Route::post('/registerDoctor', [UserController::class, 'registerDoctor'])->name('registerDoctor')->middleware('auth', VerifyRoleAdmin::class);
+Route::post('/registerUser', [UserController::class, 'registerUser'])->name('registerUser')->middleware('auth', VerifyRoleAdmin::class);

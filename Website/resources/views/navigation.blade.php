@@ -21,8 +21,8 @@
                     @endif
 
                     @if(Auth::user()->role == 'Admin')
-                        <a id="appMenuLink" class="list-group-item list-group-item-action bg-light" href="{{ route('doctors') }}" :active="request()->routeIs('doctors')">
-                            {{ __('Doctors') }}
+                        <a id="appMenuLink" class="list-group-item list-group-item-action bg-light" href="{{ route('users') }}" :active="request()->routeIs('users')">
+                            {{ __('Users') }}
                         </a>
                     @endif
 

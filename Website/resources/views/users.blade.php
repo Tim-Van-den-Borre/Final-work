@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h3>{{ __('Doctors') }}</h3>
+        <h3>{{ __('Users') }}</h3>
     </x-slot>
 
-    @if (session('doctorRemoved'))
-        <div id="doctorsToast" class="position-fixed bottom-0 right-0 p-3">
-            <div id="doctorsLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+    @if (session('userRemoved'))
+        <div id="usersToast" class="position-fixed bottom-0 right-0 p-3">
+            <div id="usersLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
                 <div class="toast-header">
                 <strong class="mr-auto">Appointment Manager</strong>
                 <small>Just now</small>
@@ -14,15 +14,32 @@
                 </button>
                 </div>
                 <div class="toast-body">
-                        Doctor <b>{{ session('doctorRemoved') }}</b> has been removed successfully.
+                        User <b>{{ session('userRemoved') }}</b> has been removed successfully.
                 </div>
             </div>
         </div>
     @endif
     
-    @if (session('doctorCreated'))
-    <div id="doctorsToast" class="position-fixed bottom-0 right-0 p-3">
-        <div id="doctorsLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+    @if (session('privilegealert'))
+        <div id="usersToast" class="position-fixed bottom-0 right-0 p-3">
+            <div id="usersLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                <div class="toast-header">
+                <strong class="mr-auto">Appointment Manager</strong>
+                <small>Just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="toast-body">
+                        Role for <b>{{ session('privilegealert') }}</b> has been updated successfully.
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (session('userCreated'))
+    <div id="usersToast" class="position-fixed bottom-0 right-0 p-3">
+        <div id="usersLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
             <div class="toast-header">
             <strong class="mr-auto">Appointment Manager</strong>
             <small>Just now</small>
@@ -31,11 +48,11 @@
             </button>
             </div>
             <div class="toast-body">
-                    Doctor <b>{{ session('doctorCreated') }}</b> has been created successfully.
-            </div>
+                    User <b>{{ session('userCreated') }}</b> has been created successfully.
+            </div>  
         </div>
     </div>
-@endif
+    @endif
 
     <div class="py-12">
         <div class="max-w-10xl mx-auto sm:px-8 lg:px-8">
@@ -49,14 +66,14 @@
                 <div class="col-7"></div>
                 <div class="col-2">
                     <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#staticBackdrop">
-                        Add Doctor
+                        Add User
                       </button>
 
                       <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="staticBackdropLabel">Add Doctor</h5>
+                              <h5 class="modal-title" id="staticBackdropLabel">Add User</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -64,7 +81,7 @@
                             <div class="modal-body">
                                 <x-jet-label style="border-bottom: solid #108fc2;"/>
                                 
-                                <form method="POST" action="{{ route('registerDoctor') }}">
+                                <form method="POST" action="{{ route('registerUser') }}">
                                     @csrf
                         
                                     <div class="mt-1">
@@ -75,6 +92,17 @@
                                     <div class="mt-4">
                                         <x-jet-label for="email" value="{{ __('Email') }}" />
                                         <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <x-jet-label for="role" value="{{ __('Role') }}" />
+                                        
+                                        <select class="custom-select" id="role" name="role" required>
+                                            <option value="">Choose...</option>
+                                            <option value="Patient">Patient</option>
+                                            <option value="Doctor">Doctor</option>
+                                            <option value="Admin">Admin</option>
+                                        </select>
                                     </div>
                         
                                     <div class="mt-4">
@@ -120,21 +148,21 @@
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Edit</th>
+                    <th scope="col">Edit role</th>
                     <th scope="col">Remove</th>
                   </tr>
                 </thead>
                 <tbody id="myTable">
-                    @foreach($doctors as $doctor)
+                    @foreach($users as $user)
                     <tr>
-                        <td>{{ $doctor->name }}</td>
-                        <td>{{ $doctor->email}}</td>
-                        <td>{{ $doctor->phonenumber}}</td>
-                        <td>{{ $doctor->role}}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email}}</td>
+                        <td>{{ $user->phonenumber}}</td>
+                        <td>{{ $user->role}}</td>
                         <td>
                             <form method="post" action="{{ route('setPrivilege') }}">
                                 @csrf
-                                    <p class="hidden" value="{{ $doctor->id }}" id="userID" name="userID"></p>
+                                    <input class="hidden" value="{{ $user->id }}" id="userID" name="userID" />
                                     
                                     <select class="custom-select" id="role" name="role" onchange="this.form.submit()" required>
                                         <option value="">Choose...</option>
@@ -142,31 +170,32 @@
                                         <option value="Doctor">Doctor</option>
                                         <option value="Admin">Admin</option>
                                     </select>
-                                </form>
+                            </form>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdropRemove{{ $doctor->id }}">X</button>                            
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdropRemove{{ $user->id }}">X</button>                            
 
-                            <div class="modal fade" id="staticBackdropRemove{{ $doctor->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelRemove" aria-hidden="true">
+                            <div class="modal fade" id="staticBackdropRemove{{ $user->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelRemove" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabelRemove">Remove {{ $doctor->name }}</h5>
+                                    <h5 class="modal-title" id="staticBackdropLabelRemove">Remove {{ $user->name }}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure you want to remove {{ $doctor->name }}?</p>
+                                        <p>Are you sure you want to remove {{ $user->name }}?</p>
                                         <br />
-                                        <p style="color: red;">Removing the doctor will remove their appointments and their medical histories!</p>
+                                        <p style="color: red;">Removing this user will remove their appointments / medical histories!</p>
                                         
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
 
-                                        <form action="{{ route('remove-doctor')}}" method="get">
-                                            <input type="hidden" id="doctorID" name="doctorID" value="{{ $doctor->id }}">
+                                        <form action="{{ route('remove-user')}}" method="get">
+                                            <input type="hidden" id="userID" name="userID" value="{{ $user->id }}">
+                                            <input type="hidden" id="userRole" name="userRole" value="{{ $user->role }}">
                                             <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                         </form>
                                     </div>

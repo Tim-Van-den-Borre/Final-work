@@ -16,9 +16,9 @@ if (window.location.href != "http://127.0.0.1:8000/") {
             }
         });
 }
-/* doctors.blade.php */
-if (window.location.href.includes("doctors")) {
-    $("#doctorsLiveToast").toast("show");
+/* users.blade.php */
+if (window.location.href.includes("users")) {
+    $("#usersLiveToast").toast("show");
 }
 
 /* appointments.blade.php */

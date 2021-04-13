@@ -51,32 +51,50 @@ class UserController extends Controller
         return view('patients', ['patients' => $patients, 'appointments' => $appointments, 'doctors' => $doctors, 'conditions' => $conditions]);
     }
 
-    public function getDoctors(){
-        $doctors = DB::table('users')->where('role', 'Doctor')->get();
+    public function getUsers(){
+        $users = DB::table('users')->get();
 
-        $patients = DB::table('users')->where('role', 'Patient')->get();
-
-        return view('doctors', ['doctors' => $doctors, 'patients' => $patients]);
+        return view('users', ['users' => $users]);
     }
 
-    public function removeDoctor(Request $request){
+    public function removeUser(Request $request){
         $this->validate($request, [
-            'doctorID' => 'required',
+            'userID' => 'required',
+            'userRole' => 'required'
         ]);
 
-        $appointments = Appointment::where('doctorID', $request->input('doctorID'))->get();
+        $user = DB::table('users')->where('id', $request->input('userID'))->get();
 
-        foreach ($appointments as $appointment){
-            MedicalHistory::where('appointmentID', $appointment->id)->get()->each->delete();
+        if($request->input('userRole') == 'Patient'){
+            $appointments = Appointment::where('patientID', $request->input('userID'))->get();
+
+            foreach ($appointments as $appointment){
+                MedicalHistory::where('appointmentID', $appointment->id)->get()->each->delete();
+            }
+    
+            Appointment::where('patientID', $request->input('userID'))->get()->each->delete();
+    
+            DB::table('users')->where('id', $request->input('userID'))->delete();
         }
 
-        Appointment::where('doctorID', $request->input('doctorID'))->get()->each->delete();
+        if($request->input('userRole') == 'Doctor'){
+            $appointments = Appointment::where('doctorID', $request->input('userID'))->get();
 
-        $user = DB::table('users')->where('id', $request->input('doctorID'))->get();
+            foreach ($appointments as $appointment){
+                MedicalHistory::where('appointmentID', $appointment->id)->get()->each->delete();
+            }
+    
+            Appointment::where('doctorID', $request->input('userID'))->get()->each->delete();
+    
+            DB::table('users')->where('id', $request->input('userID'))->delete();
+        }
 
-        DB::table('users')->where('id', $request->input('doctorID'))->delete();
+        if($request->input('userRole') == 'Admin'){
+    
+            DB::table('users')->where('id', $request->input('userID'))->delete();
+        }
 
-        return redirect()->route('doctors')->with('doctorRemoved', $user[0]->name);
+        return redirect()->route('users')->with('userRemoved', $user[0]->name);
     }
 
     public function getFile(){
@@ -97,22 +115,16 @@ class UserController extends Controller
             'role' => 'required'
         ]);
 
-        error_log("hello");
-
-        $user = DB::table('users')->where('id', $request->input('userID'))->get();
-
-        error_log($user);
-
-        error_log("sssssssssssssssssssssssssssssssssssssss"+$request->input('userID'));
+        $user = User::find($request->input('userID'));
 
         $user->role = $request->input('role');
 
         $user->save();
 
-        return redirect()->route('privileges')->with('privilegealert', $user[0]->name);
+        return redirect()->route('users')->with('privilegealert', $user->name);
     }
 
-    public function registerDoctor(Request $request){
+    public function registerUser(Request $request){
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -120,17 +132,18 @@ class UserController extends Controller
             'role' => ['string'],
             'birthdate' => ['required', 'date'],
             'phonenumber' => ['required'],
+            'role' => ['required']
         ]);
 
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'role' => 'Doctor',
+            'role' => $request->input('role'),
             'birthdate' => $request->input('birthdate'),
             'phonenumber' => $request->input('phonenumber'),
             'password' => Hash::make($request->input('password')),
         ]);
 
-        return redirect()->route('doctors')->with('doctorCreated', $user->name);
+        return redirect()->route('users')->with('userCreated', $user->name);
     }
 }
