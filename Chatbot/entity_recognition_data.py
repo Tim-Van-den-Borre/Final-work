@@ -90,6 +90,15 @@ def preprocessdata():
 
         ("I would like an appointment at 6pm", {"entities": [(32, 34, "appointment_hour")]}),
 
-        ("Is an appointment at 9am and 10am a possibility?", {"entities": [(22, 24, "appointment_hour"), (30, 34, "appointment_hour")]})
+        ("Is an appointment at 9am and 10am a possibility?", {"entities": [(22, 24, "appointment_hour"), (30, 34, "appointment_hour")]}),
+
+        # Appointment Reason
+        ("I would like an appointment since i have pain in my throat.", {"entities": [(34, 58, "appointment_reason")]}),
+
+        ("I would like to see a doctor regarding my headache", {"entities": [(42, 50, "appointment_reason")]}),
+
+        ("Can i get an appointment for treatment of my leg?", {"entities": [(29, 48, "appointment_reason")]}),
+
+        ("Can i get an appointment for taking blood?", {"entities": [(29, 42, "appointment_reason")]}),
     ]
     return TRAIN_DATA

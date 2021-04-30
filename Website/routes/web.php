@@ -42,6 +42,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 // No Auth
 Route::get('/privacy-policy', [PrivacyController::class, 'index'])->name('privacy-policy');
 
+Route::post('/validateChatbotData', [UserController::class, 'validateChatbotData'])->name('validateChatbotData');
+
 // Auth
 Route::get('/calender', [CalenderController::class, 'getCalender'])->name('calender')->middleware('auth');
 

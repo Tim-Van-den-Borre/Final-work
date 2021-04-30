@@ -1,3 +1,19 @@
+@if (session('messageSend'))
+    <div id="welcomeToast" class="position-fixed bottom-0 right-0 p-3">
+        <div id="welcomeLiveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+            <div class="toast-header">
+            <strong class="mr-auto">Appointment Manager</strong>
+            <small>Just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="toast-body">
+                {{ session('messageSend') }}
+            </div>
+        </div>
+    </div>
+@endif
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">

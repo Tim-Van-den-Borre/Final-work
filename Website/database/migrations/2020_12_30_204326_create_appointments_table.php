@@ -18,7 +18,8 @@ class CreateAppointmentsTable extends Migration
             $table->unsignedBigInteger('patientID');
             $table->unsignedBigInteger('doctorID');
             $table->string('reason', 100);
-            $table->datetime('date');
+            $table->datetime('startDate');
+            $table->datetime('endDate');
             $table->timestamps();
 
             $table->foreign('patientID')->references('id')->on('users');

@@ -8,6 +8,7 @@ use Auth;
 use App\Models\Appointment;
 use App\Models\MedicalHistory;
 use DateTime;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -17,7 +18,7 @@ class AppointmentController extends Controller
 
         $today = new DateTime();
 
-        $appointments = DB::table('appointments')->where('date', '>=', $today)->orderBy('date', 'desc')->get();
+        $appointments = DB::table('appointments')->where('startDate', '>=', $today)->orderBy('startDate', 'desc')->get();
 
         $doctors = DB::table('users')->where('role', 'Doctor')->get();
 
@@ -31,7 +32,8 @@ class AppointmentController extends Controller
         $appointment->patientID = $request->input('patient');
         $appointment->doctorID =  $request->input('doctor');
         $appointment->reason = $request->input('reason'); 
-        $appointment->date = $request->input('date');
+        $appointment->startDate = $request->input('startDate');
+        $appointment->endDate = $request->input('endDate');
 
         $appointment->save();
         return response(Auth::user()->id, 200);
@@ -42,14 +44,16 @@ class AppointmentController extends Controller
             $this->validate($request, [
                 'doctor' => 'required',
                 'appointmentsReason' => 'required',
-                'date' => 'required'
+                'startDate' => 'required',
+                'endDate' => 'required'
             ]);
             
             $appointment = new Appointment();
             $appointment->patientID = Auth::user()->id;
             $appointment->doctorID =  $request->input('doctor');
             $appointment->reason = $request->input('appointmentsReason'); 
-            $appointment->date = $request->input('date');
+            $appointment->startDate = $request->input('startDate');
+            $appointment->endDate = $request->input('endDate');
     
             $user = DB::table('users')->where('id', $appointment->doctorID)->get();
     
@@ -61,14 +65,16 @@ class AppointmentController extends Controller
             $this->validate($request, [
                 'patient' => 'required',
                 'appointmentsReason' => 'required',
-                'date' => 'required'
+                'startDate' => 'required',
+                'endDate' => 'required'
             ]);
 
             $appointment = new Appointment();
             $appointment->patientID = $request->input('patient');
             $appointment->doctorID = Auth::user()->id; 
             $appointment->reason = $request->input('appointmentsReason');
-            $appointment->date = $request->input('date');
+            $appointment->startDate = $request->input('startDate');
+            $appointment->endDate = $request->input('endDate');
     
             $user = DB::table('users')->where('id', $appointment->patientID)->get();
     
@@ -127,13 +133,15 @@ class AppointmentController extends Controller
         $this->validate($request, [
             'appointmentID' => 'required',
             'appointmentsReason' => 'required',
-            'date' => 'required'
+            'startDate' => 'required',
+            'endDate' => 'required'
         ]);
 
         $appointment = Appointment::find($request->input('appointmentID'));
         $appointment->doctorID = Auth::user()->id; 
         $appointment->reason = $request->input('appointmentsReason');
-        $appointment->date = $request->input('date');
+        $appointment->startDate = $request->input('startDate');
+        $appointment->endDate = $request->input('endDate');
 
         $user = DB::table('users')->where('id', $appointment->patientID)->get();
 

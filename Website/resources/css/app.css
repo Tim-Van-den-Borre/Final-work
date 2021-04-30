@@ -335,7 +335,8 @@
 }
 
 #appointmentsLiveToast,
-#usersLiveToast {
+#usersLiveToast,
+#welcomeLiveToast {
     border: 1px solid #108fc2;
 }
 

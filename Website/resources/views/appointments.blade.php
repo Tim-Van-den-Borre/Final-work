@@ -174,7 +174,7 @@
                               </button>
         
                               <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
+                                <div class="modal-dialog modal-lg">
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h5 class="modal-title" id="staticBackdropLabel">Create Appointment</h5>
@@ -187,7 +187,7 @@
                                         <form method="POST" action="{{ route('create-appointment') }}">
                                             @csrf
                                             <div class="form-row">
-                                                    <div class="col-md-4 mb-12">
+                                                    <div class="col-md-6 mb-12">
                                                         <label for="patient">Patient</label>
                                                         <select class="custom-select" id="patient" name="patient" required>
                                                             <option value="">Choose...</option>
@@ -196,13 +196,17 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4 mb-12">
+                                                    <div class="col-md-6 mb-12">
                                                         <label for="doctor">Doctor</label>
                                                         <input type="text" class="form-control" id="doctor" name="doctor" value="{{ Auth::user()->name }}" disabled>
                                                     </div>
-                                                <div class="col-md-4 mb-12">
-                                                    <label for="date">Date</label>
-                                                    <input class="form-control" type="datetime-local" id="date" name="date" required>
+                                                <div class="col-md-6 mb-12">
+                                                    <label for="date">Start Date</label>
+                                                    <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
+                                                </div>
+                                                <div class="col-md-6 mb-12">
+                                                    <label for="date">End Date</label>
+                                                    <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -232,7 +236,8 @@
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col">Patient</th>
-                            <th scope="col">Date</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
                             <th scope="col">Reason</th>
                             <th scope="col">Medical History</th>
                             <th scope="col">Edit</th>
@@ -245,7 +250,8 @@
                                     @if($appointment->patientID == $patient->id)
                                         <tr>
                                             <td>{{$patient->name }}</td>
-                                            <td>{{$appointment->date}}</td>
+                                            <td>{{$appointment->startDate}}</td>
+                                            <td>{{$appointment->endDate}}</td>
                                             <td>{{$appointment->reason}}</td>
                                             <td>
                                                 @if($histories->isEmpty())
@@ -253,7 +259,7 @@
                                                         <i class="bi bi-plus-circle"></i>
                                                     </button>
                                                     <div class="modal fade" id="staticCreateHistory{{ $appointment->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticCreateHistoryLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-sm">
+                                                        <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                             <h5 class="modal-title" id="staticCreateHistoryLabel">Create Medical History - {{ $patient->name }}</h5>
@@ -261,33 +267,35 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                             </div>
-                                                            <div class="modal-body">                                            
+                                                            <div class="modal-body">    
+                                                                <x-jet-label style="border-bottom: solid #108fc2;"/>                                        
                                                                 <form method="POST" action="{{ route('create-medicalhistory') }}">
                                                                     @csrf
                                                                     <div class="form-row">
-                                                                        <div class="col-md-12 mb-6">
+                                                                        <div class="col-md-6 mb-6">
                                                                             <input type="hidden" class="form-control" id="appointmentID" name="appointmentID" value="{{ $appointment->id }}">
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="form-row">
-                                                                        <div class="col-md-12 mb-6">
+                                                                        <div class="col-md-6 mb-6">
                                                                             <label for="medicalHistoryDate">Date</label>
                                                                             <input class="form-control" type="datetime-local" id="medicalHistoryDate" name="medicalHistoryDate" required>
                                                                         </div>
 
-                                                                        <div class="col-md-12 mb-6">
+                                                                        <div class="col-md-6 mb-6">
                                                                             <label for="appointmentsCondition">Condition</label>
                                                                             <textarea class="form-control" id="appointmentsCondition" name="appointmentsCondition" placeholder="Medical condition" rows="2" maxlength="100" required></textarea>
                                                                             <p id="medicalHistoryCount" style="text-align: right; font-size: 12px;"></p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-row">
-                                                                        <div class="col-md-12 mb-6">
+                                                                        <div class="col-md-6 mb-6">
                                                                             <button class="btn btn-sm btn-primary" type="submit">Save Medical History</button>
                                                                         </div>
                                                                     </div>
                                                                 </form>
+                                                                <x-jet-label style="border-bottom: solid #108fc2;"/>
                                                             </div>
                                                         </div>
                                                         </div>
@@ -302,7 +310,7 @@
                                                                 <i class="bi bi-eye"></i>
                                                             </button>
                                                             <div class="modal fade" id="staticHistory{{ $history->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticHistoryLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-xl">
+                                                                <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                     <h5 class="modal-title" id="staticHistoryLabel">View Medical History</h5>
@@ -311,22 +319,25 @@
                                                                     </button>
                                                                     </div>
                                                                     <div class="modal-body">                                            
-                                                                        <div class="form-row">
-                                                                            <div class="col-md-6 mb-12">
+                                                                        <x-jet-label style="border-bottom: solid #108fc2;"/>
+                                                                            <div class="col-md-12 mb-12">
                                                                                 <label for="doctor">Condition</label>
                                                                                 <input type="text" class="form-control" value="{{ $history->condition }}" disabled>
                                                                             </div>
-                                                                            <div class="col-md-6 mb-12">
+                                                                            <div class="col-md-12 mb-12">
                                                                                 <label for="doctor">Date</label>
                                                                                 <input type="text" class="form-control" value="{{ $history->date }}" disabled>
                                                                             </div>                                       
-                                                                        </div>
-                                                                        <div class="form-row">
-                                                                            <form action="{{ route('remove-history')}}" method="get">
-                                                                                <input type="hidden" id="historyID" name="historyID" value="{{ $history->id }}">
-                                                                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                                                                            </form>
-                                                                        </div>
+                                                                   
+                                                                            <div class="form-row">
+                                                                                <div class="col-md-12 mb-6">
+                                                                                    <form action="{{ route('remove-history')}}" method="get">
+                                                                                        <input type="hidden" id="historyID" name="historyID" value="{{ $history->id }}">
+                                                                                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        <x-jet-label style="border-bottom: solid #108fc2;"/>
                                                                     </div>
                                                                 </div>
                                                                 </div>
@@ -350,7 +361,8 @@
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                                 </div>
-                                                                <div class="modal-body">                                            
+                                                                <div class="modal-body">  
+                                                                    <x-jet-label style="border-bottom: solid #108fc2;"/>                                          
                                                                     <form method="POST" action="{{ route('create-medicalhistory') }}">
                                                                         @csrf
                                                                         <div class="form-row">
@@ -377,6 +389,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </form>
+                                                                    <x-jet-label style="border-bottom: solid #108fc2;"/>
                                                                 </div>
                                                             </div>
                                                             </div>
@@ -399,15 +412,19 @@
                                                         </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                      
+                                                            <x-jet-label style="border-bottom: solid #108fc2;"/>
                                                             <form method="POST" action="{{ route('edit-appointment') }}">
                                                                 @csrf
                                                                 <div class="form-row">
                                                                     <input type="hidden" class="form-control" id="appointmentID" name="appointmentID" value="{{ $appointment->id }}">
                                 
-                                                                    <div class="col-md-12 mb-12">
-                                                                        <label for="date">Date</label>
-                                                                        <input class="form-control" type="datetime-local" id="date" name="date" required>
+                                                                    <div class="col-md-6 mb-12">
+                                                                        <label for="date">Start Date</label>
+                                                                        <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-12">
+                                                                        <label for="date">End Date</label>
+                                                                        <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
                                                                     </div>
                                                                 </div>
                                     
@@ -424,6 +441,7 @@
                                                                     </div>
                                                                 </div>
                                                             </form>
+                                                            <x-jet-label style="border-bottom: solid #108fc2;"/>
                                                         </div>
                                                     </div>
                                                     </div>
@@ -442,7 +460,13 @@
                                                         </button>
                                                         </div>
                                                         <div class="modal-body">
+                                                            <x-jet-label style="border-bottom: solid #108fc2;"/>
+                                                            <br />
+                                                            <br />
                                                             <p>Are you sure you want to remove the appointment for {{ $patient->name }}?</p>
+                                                            <br />
+                                                            <br />
+                                                            <x-jet-label style="border-bottom: solid #108fc2;"/>
                                                             
                                                         </div>
                                                         <div class="modal-footer">
@@ -464,8 +488,7 @@
                                 @endforeach
                             @endforeach
                         </tbody>
-                      </table>
-             
+                    </table>
             </div>
             <script>
                 $(document).ready(function(){

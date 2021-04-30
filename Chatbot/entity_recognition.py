@@ -37,14 +37,13 @@ def recognize_entities(input_user):
         displayentityformat(model, input_user)
 
     ner_object = model(input_user)
-    entities = []
+    entities = {}
 
     # add all entities to a list.
     for entity in ner_object.ents:
-        entities.append(entity.text)
+        entities[entity.label_] = entity.text
 
-        # show the entity + position int the sentence.
-        #print(entity.text, entity.start_char, entity.end_char, entity.label_)
+    return entities
 
 
 # create ner model. train data.

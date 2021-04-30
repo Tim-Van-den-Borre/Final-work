@@ -22,9 +22,15 @@ def postUserId():
 def post():
     try:
         data = request.get_json()
-        print(data)
-        response = jsonify({"patient": data["UserID"], "doctor": 1, "reason": "niks", "date": "20/09/2021", "hour": "13:30",
-                            "message": chat(data["Message"])})
+        userdata = chat(data)
+        response = jsonify({
+                "patient": userdata['UserID'],
+                "doctor": userdata['Data']['doctor'],
+                "reason": userdata['Data']['reason'],
+                "date": userdata['Data']['date'],
+                "time": userdata['Data']['time'],
+                "message": userdata["Message"]
+            })
 
         response.headers.add('Access-Control-Allow-Origin', '*')
     except:

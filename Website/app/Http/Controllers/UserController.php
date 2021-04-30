@@ -42,7 +42,7 @@ class UserController extends Controller
     public function getPatients(){
         $patients = DB::table('users')->where('role', 'Patient')->get();
 
-        $appointments = DB::table('appointments')->orderBy('date', 'desc')->get();
+        $appointments = DB::table('appointments')->orderBy('startDate', 'desc')->get();
 
         $doctors = DB::table('users')->where('role', 'Doctor')->get();
 
@@ -145,5 +145,17 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('users')->with('userCreated', $user->name);
+    }
+
+
+    public function validateChatbotData(Request $request){
+        error_log("method called");
+        $data = json_decode($request->getContent());
+
+        error_log($data->Data->patient);
+
+        
+        //return response()->json($data->Data);
+        return "this api call worked!";
     }
 }

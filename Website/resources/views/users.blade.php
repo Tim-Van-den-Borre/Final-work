@@ -164,6 +164,7 @@
                                 @csrf
                                     <input class="hidden" value="{{ $user->id }}" id="userID" name="userID" />
                                     
+                                    
                                     <select class="custom-select" id="role" name="role" onchange="this.form.submit()" required>
                                         <option value="">Choose...</option>
                                         <option value="Patient">Patient</option>

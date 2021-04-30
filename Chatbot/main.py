@@ -1,4 +1,8 @@
 import json
+
+import requests
+from flask import jsonify
+
 import entity_recognition
 import nltk
 import numpy
@@ -24,7 +28,7 @@ except IOError:
     trainable = True
 
 if trainable:
-    words = []   # The root words.
+    words = []  # The root words.
     tags = []  # The tags.
     patterns = []  # The patterns (list).
     taglist = []  # Will contain each tag but as the amount of how many times the tag exists.
@@ -90,10 +94,11 @@ if trainable:
         pickle.dump((words, tags, training, output), f)
 
 # AI part. Neural network connections.
-network = tflearn.input_data(shape=[None, len(training[0])]) # Define the input shape we are expecting for the model.
-network = tflearn.fully_connected(network, 8) # Add a fully connected layer to our neural network layer.
-network = tflearn.fully_connected(network, 8) # Same thing for the second one.
-network = tflearn.fully_connected(network, len(output[0]), activation="softmax") # Output layer. Allows us to get probabilities for the output.
+network = tflearn.input_data(shape=[None, len(training[0])])  # Define the input shape we are expecting for the model.
+network = tflearn.fully_connected(network, 8)  # Add a fully connected layer to our neural network layer.
+network = tflearn.fully_connected(network, 8)  # Same thing for the second one.
+network = tflearn.fully_connected(network, len(output[0]),
+                                  activation="softmax")  # Output layer. Allows us to get probabilities for the output.
 network = tflearn.regression(network)
 
 # Train the model.
@@ -110,6 +115,7 @@ else:
     model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
     model.save("model.tflearn")
 
+
 def bag_of_words(input_user, words):
     bag = [0 for _ in range(len(words))]
 
@@ -123,14 +129,15 @@ def bag_of_words(input_user, words):
 
     return numpy.array(bag)
 
-def chat(Message):
 
+def chat(input):
     try:
-        input_user = Message
+        data2 = requests.post("http://127.0.0.1:8000/validateChatbotData", input)
+        input_user = input
 
-        entity_recognition.recognize_entities(input_user)  # entity recognition.
+        input_user = fillAppointmentData(input_user)
 
-        results = model.predict([bag_of_words(input_user, words)])[0]
+        results = model.predict([bag_of_words(input_user['Message'], words)])[0]
         results_index = numpy.argmax(results)
         tag = tags[results_index]
 
@@ -140,13 +147,24 @@ def chat(Message):
         random_response = random.randint(0, 3)
 
         response_chatbot = "{}".format(data[tag]['response'][random_response])
-
+        input_user['Message'] = response_chatbot
         if results[results_index] > 0.7:
-            return response_chatbot
+            return input_user
         else:
             return "{}".format(data['unclear']['response'][random_response])
     except UnboundLocalError as e:
         print("Some error occurred: {}".format(e))
+
+
+def fillAppointmentData(input_user):
+    entities = entity_recognition.recognize_entities(input_user['Message'])  # entity recognition.
+
+    for key in entities:
+        if key == 'name_doctor':
+            input_user['Data']['doctor'] = entities[key]
+
+    return input_user
+
 
 def ChatForTraining():
     print("Start talking with the bot.")
@@ -156,7 +174,7 @@ def ChatForTraining():
             if input_user.lower() == "/leave":
                 break
 
-            entity_recognition.recognize_entities(input_user) #entity recognition.
+            entity_recognition.recognize_entities(input_user)  # entity recognition.
 
             results = model.predict([bag_of_words(input_user, words)])[0]
             results_index = numpy.argmax(results)
