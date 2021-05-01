@@ -9,6 +9,7 @@ def displayentityformat(model, input_user):
     i = 0
 
     for ent in document.ents:
+        print('{}: ({}, {}, \"{}\")'.format(ent.text, ent.start_char, ent.end_char, ent.label_))
         if len(document.ents) - 1 == i:
             entities += '({}, {}, \"{}\")'.format(ent.start_char, ent.end_char, ent.label_)
         else:

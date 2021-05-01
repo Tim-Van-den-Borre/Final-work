@@ -21467,19 +21467,6 @@ if (window.location.href == "http://127.0.0.1:8000/") {
       data.reason = response.reason;
       data.date = response.date;
       data.time = response.time;
-      fetch("/validateChatbotData", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          Data: data
-        })
-      }).then(function (response) {
-        return response.json();
-      }).then(function (response) {
-        console.log(response);
-      });
     });
   };
 

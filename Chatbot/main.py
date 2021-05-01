@@ -132,36 +132,74 @@ def bag_of_words(input_user, words):
 
 def chat(input):
     try:
-        data2 = requests.post("http://127.0.0.1:8000/validateChatbotData", input)
         input_user = input
-
         input_user = fillAppointmentData(input_user)
 
-        results = model.predict([bag_of_words(input_user['Message'], words)])[0]
-        results_index = numpy.argmax(results)
-        tag = tags[results_index]
+        customAnswer = customResponse(input_user)
 
-        with open('responses.json') as json_file:
-            data = json.load(json_file)
+        if customAnswer == "":
+            results = model.predict([bag_of_words(input_user['Message'], words)])[0]
+            results_index = numpy.argmax(results)
+            tag = tags[results_index]
 
-        random_response = random.randint(0, 3)
+            with open('responses.json') as json_file:
+                data = json.load(json_file)
 
-        response_chatbot = "{}".format(data[tag]['response'][random_response])
-        input_user['Message'] = response_chatbot
-        if results[results_index] > 0.7:
-            return input_user
+            random_response = random.randint(0, 3)
+
+            response_chatbot = "{}".format(data[tag]['response'][random_response])
+            input_user['Message'] = response_chatbot
+            if results[results_index] > 0.7:
+                return input_user
+            else:
+                return "{}".format(data['unclear']['response'][random_response])
         else:
-            return "{}".format(data['unclear']['response'][random_response])
+            input_user['Message'] = customAnswer
+            return input_user
+
     except UnboundLocalError as e:
         print("Some error occurred: {}".format(e))
 
 
+def customResponse(input_user):
+    if input_user['Data']['doctor'] == 'NOT FOUND':
+        return "The given doctor has not been found. Please provide another name of a doctor..."
+
+    if input_user['Data']['doctor'] and input_user['Data']['date'] and input_user['Data']['time'] and input_user['Data']['reason']:
+        entities = entity_recognition.recognize_entities(input_user['Message'])  # entity recognition.
+        if entities != {}:
+            for key in entities:
+                if key == 'approved':
+                    # api call naar appointment
+                    return "Appointment has been created"
+        return "Can i make an appointment with the following data:  ?"
+    return ""
+
+
 def fillAppointmentData(input_user):
+    print(input_user)
     entities = entity_recognition.recognize_entities(input_user['Message'])  # entity recognition.
 
-    for key in entities:
-        if key == 'name_doctor':
-            input_user['Data']['doctor'] = entities[key]
+    if entities != {}:
+
+        for key in entities:
+            if key == 'name_doctor':
+                input_user['Data']['doctor'] = entities[key]
+            if key == 'appointment_reason':
+                input_user['Data']['reason'] = entities[key]
+            if key == 'appointment_hour':
+                input_user['Data']['time'] = entities[key]
+            if key == 'appointment_day':
+                input_user['Data']['date'] = entities[key]
+
+        response = requests.post("http://127.0.0.1:8000/validateChatbotData", json=input_user)
+        res = response.json()
+
+        input_user['Data']['patient'] = input_user['UserID']
+        input_user['Data']['doctor'] = res['doctor']
+        input_user['Data']['reason'] = res['reason']
+        input_user['Data']['date'] = res['date']
+        input_user['Data']['time'] = res['time']
 
     return input_user
 

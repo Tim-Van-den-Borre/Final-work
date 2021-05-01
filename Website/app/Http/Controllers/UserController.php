@@ -147,15 +147,35 @@ class UserController extends Controller
         return redirect()->route('users')->with('userCreated', $user->name);
     }
 
-
     public function validateChatbotData(Request $request){
-        error_log("method called");
+
         $data = json_decode($request->getContent());
 
-        error_log($data->Data->patient);
-
-        
-        //return response()->json($data->Data);
-        return "this api call worked!";
+        if (!empty($data->Data->doctor)){
+            $response = DB::table('users')->where('name','LIKE','%'.$data->Data->doctor.'%')->get();
+            if(empty($response)){
+                $data->Data->doctor = "NOT FOUND";
+            }
+        }
+        if (!empty($data->Data->date)){
+            $data->Data->date = date("Y-m-d",strtotime(trim($data->Data->date)));
+        }
+        if (!empty($data->Data->time)){
+            if (str_contains(strtolower($data->Data->time), "am")){
+                $data->Data->time = str_replace("am", "", strtolower($data->Data->time));
+                $data->Data->time = date('h:i:s', $data->Data->time);
+            }
+    
+            if (str_contains(strtolower($data->Data->time), "pm")){
+                $data->Data->time = str_replace("pm", "", strtolower($data->Data->time));
+                $data->Data->time = intval($data->Data->time);
+                if ($data->Data->time <= 12){
+                    $data->Data->time += 12;
+                }
+            }
+        }
+        return response()->json($data->Data);
     }
+
+
 }
