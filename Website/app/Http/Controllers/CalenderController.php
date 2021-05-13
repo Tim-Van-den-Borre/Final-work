@@ -4,21 +4,47 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Acaronlex\LaravelCalendar\Calendar;
+use Auth;
+use DB;
+use App\Models\Appointment;
 
 class CalenderController extends Controller
 {
     public function getCalender(){
 
-        $events = [];
+        if(Auth::user()->role == 'Doctor' || Auth::user()->role == 'Admin'){
+            $events = [];
 
-        $date = \DateTime::createFromFormat("Y-m-d h:i:s", '2021-04-20 09:00:00');
+            $appointments = DB::table('appointments')->where('doctorID', Auth::user()->id)->get();
+    
+            foreach($appointments as $appointment){
+                $user = DB::table('users')->where('id', $appointment->patientID)->first();
 
-        $events[] = \Calendar::event(
-            "Valentine's Day", //event title
-            false, //full day event?
-            \DateTime::createFromFormat ("Y-m-d h:i:s", '2021-04-20 09:00:00'),
-            \DateTime::createFromFormat ("Y-m-d h:i:s", '2021-04-20 09:30:00'),
-        );
+                $events[] = \Calendar::event(
+                    $user->name, //event title
+                    false, //full day event?
+                    $appointment->startDate,
+                    $appointment->endDate
+                );
+            }
+        }
+        if(Auth::user()->role == 'Patient'){
+            $events = [];
+
+            $appointments = DB::table('appointments')->where('patientID', Auth::user()->id)->get();
+    
+            foreach($appointments as $appointment){
+                $user = DB::table('users')->where('id', $appointment->doctorID)->first();
+
+                $events[] = \Calendar::event(
+                    $user->name, //event title
+                    false, //full day event?
+                    $appointment->startDate,
+                    $appointment->endDate
+                );
+            }
+        }
+
         
         $calendar = new Calendar();
                 $calendar->addEvents($events)

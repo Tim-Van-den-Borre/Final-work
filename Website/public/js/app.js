@@ -21348,16 +21348,18 @@ console.log(window.location.href);
 /* app.layout.blade */
 
 if (window.location.href != "http://127.0.0.1:8000/") {
-  document.getElementById("appMenuToggle").addEventListener("click", function (e) {
-    e.preventDefault();
-    var appWrapper = document.getElementById("appWrapper");
+  if (document.getElementById("appMenuToggle")) {
+    document.getElementById("appMenuToggle").addEventListener("click", function (e) {
+      e.preventDefault();
+      var appWrapper = document.getElementById("appWrapper");
 
-    if (appWrapper.classList.contains("toggled")) {
-      appWrapper.classList.remove("toggled");
-    } else {
-      appWrapper.classList.add("toggled");
-    }
-  });
+      if (appWrapper.classList.contains("toggled")) {
+        appWrapper.classList.remove("toggled");
+      } else {
+        appWrapper.classList.add("toggled");
+      }
+    });
+  }
 }
 /* users.blade.php */
 
@@ -21377,99 +21379,25 @@ if (window.location.href.includes("appointments")) {
     var textLengthOver = length - textLength;
     document.getElementById("appointmentMessageCount").innerHTML = textLength + " / " + length;
   });
-  document.getElementById("medicalHistoryCount").innerHTML = "0 / " + length2;
-  document.getElementById("appointmentsCondition").addEventListener("keyup", function () {
-    var textLength2 = document.getElementById("appointmentsCondition").value.length;
-    var textLengthOver2 = length2 - textLength2;
-    document.getElementById("medicalHistoryCount").innerHTML = textLength2 + " / " + length2;
-  });
+
+  if (document.getElementById("medicalHistoryCount")) {
+    document.getElementById("medicalHistoryCount").innerHTML = "0 / " + length2;
+  }
+
+  if (document.getElementById("appointmentsCondition")) {
+    document.getElementById("appointmentsCondition").addEventListener("keyup", function () {
+      var textLength2 = document.getElementById("appointmentsCondition").value.length;
+      var textLengthOver2 = length2 - textLength2;
+      document.getElementById("medicalHistoryCount").innerHTML = textLength2 + " / " + length2;
+    });
+  }
+
   $("#appointmentsLiveToast").toast("show");
 }
 /* welcome.blade.php */
 
 
 if (window.location.href == "http://127.0.0.1:8000/") {
-  var openChat = function openChat() {
-    data = {
-      patient: "",
-      doctor: "",
-      reason: "",
-      date: "",
-      time: ""
-    };
-    var main = document.getElementById("chatbotCard");
-
-    if (main.style.display === "none") {
-      main.style.display = "block";
-      fetch("http://127.0.0.1:5000/firstmessage", {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-        }
-      }).then(function (response) {
-        return response.json();
-      }).then(function (response) {
-        showBotMessageOnChat(response);
-      });
-    } else {
-      main.style.display = "none";
-      document.getElementsByClassName("ChatWindow").innerHTML = "";
-      document.querySelector(".ChatWindow").innerHTML = "";
-    }
-  };
-
-  var showUserMessageOnChat = function showUserMessageOnChat(input) {
-    var UserMessage = '<p id="chatbotUserMessage">' + input + " </p>";
-    document.querySelector(".ChatWindow").innerHTML += UserMessage;
-    document.getElementById("UserMessageInput").value = "";
-    var Body = document.getElementById("chatbotCardBody");
-    Body.scrollTop = Body.scrollHeight;
-  };
-
-  var showBotMessageOnChat = function showBotMessageOnChat(response) {
-    var BotMessage = '<p id="chatbotBotMessage">' + response + " </p>";
-    document.querySelector(".ChatWindow").innerHTML += BotMessage;
-    var Body = document.getElementById("chatbotCardBody");
-    Body.scrollTop = Body.scrollHeight;
-  };
-
-  var SendUserMessageToApi = function SendUserMessageToApi(message) {
-    fetch("http://127.0.0.1:8000/api/chatbotGetUserId", {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      }
-    }).then(function (response) {
-      return response.json();
-    }).then(function (response) {
-      GetResponseFromChatbot(response, message);
-    });
-  };
-
-  var GetResponseFromChatbot = function GetResponseFromChatbot(userID, message) {
-    fetch("http://127.0.0.1:5000/chat", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      },
-      body: JSON.stringify({
-        Message: message,
-        UserID: userID,
-        Data: data
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (response) {
-      console.log(response);
-      showBotMessageOnChat(response.message);
-      data.patient = response.patient;
-      data.doctor = response.doctor;
-      data.reason = response.reason;
-      data.date = response.date;
-      data.time = response.time;
-    });
-  };
-
   var setMessageCookie = function setMessageCookie($check) {
     if ($check != false) {
       document.cookie = "laravel_session_message = Accepted by user;";
@@ -21479,26 +21407,111 @@ if (window.location.href == "http://127.0.0.1:8000/") {
   $("#welcomeLiveToast").toast("show");
   /* chatbot */
 
-  document.getElementById("chatbotButton").addEventListener("click", openChat);
-  var data;
-  document.getElementById("UserMessageInput").addEventListener("keyup", function (e) {
-    var input = document.getElementById("UserMessageInput").value;
+  if (document.getElementById("chatbotButton")) {
+    var openChat = function openChat() {
+      data = {
+        patient: "",
+        doctor: "",
+        reason: "",
+        date: "",
+        time: ""
+      };
+      var main = document.getElementById("chatbotCard");
 
-    if (e.key === "Enter") {
-      if (input.trim() == "") {
-        e.preventDefault();
+      if (main.style.display === "none") {
+        main.style.display = "block";
+        fetch("http://127.0.0.1:5000/firstmessage", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8"
+          }
+        }).then(function (response) {
+          return response.json();
+        }).then(function (response) {
+          showBotMessageOnChat(response);
+        });
       } else {
-        showUserMessageOnChat(input);
-        SendUserMessageToApi(input);
-        e.preventDefault();
+        main.style.display = "none";
+        document.getElementsByClassName("ChatWindow").innerHTML = "";
+        document.querySelector(".ChatWindow").innerHTML = "";
       }
-    }
-  });
+    };
 
-  document.getElementById("welcomeSetCookieMessage").onclick = function () {
-    setMessageCookie(true);
-    this.parentElement.parentElement.parentElement.style.display = "none";
-  };
+    var showUserMessageOnChat = function showUserMessageOnChat(input) {
+      var UserMessage = '<p id="chatbotUserMessage">' + input + " </p>";
+      document.querySelector(".ChatWindow").innerHTML += UserMessage;
+      document.getElementById("UserMessageInput").value = "";
+      var Body = document.getElementById("chatbotCardBody");
+      Body.scrollTop = Body.scrollHeight;
+    };
+
+    var showBotMessageOnChat = function showBotMessageOnChat(response) {
+      var BotMessage = '<p id="chatbotBotMessage">' + response + " </p>";
+      document.querySelector(".ChatWindow").innerHTML += BotMessage;
+      var Body = document.getElementById("chatbotCardBody");
+      Body.scrollTop = Body.scrollHeight;
+    };
+
+    var SendUserMessageToApi = function SendUserMessageToApi(message) {
+      fetch("http://127.0.0.1:5000/api/chatbotGetUserId", {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        GetResponseFromChatbot(response, message);
+      });
+    };
+
+    var GetResponseFromChatbot = function GetResponseFromChatbot(userID, message) {
+      fetch("http://127.0.0.1:5000/chat", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify({
+          Message: message,
+          UserID: userID,
+          Data: data
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        console.log(response);
+        showBotMessageOnChat(response.message);
+        data.patient = response.patient;
+        data.doctor = response.doctor;
+        data.reason = response.reason;
+        data.date = response.date;
+        data.time = response.time;
+      });
+    };
+
+    document.getElementById("chatbotButton").addEventListener("click", openChat);
+    var data;
+    document.getElementById("UserMessageInput").addEventListener("keyup", function (e) {
+      var input = document.getElementById("UserMessageInput").value;
+
+      if (e.key === "Enter") {
+        if (input.trim() == "") {
+          e.preventDefault();
+        } else {
+          showUserMessageOnChat(input);
+          SendUserMessageToApi(input);
+          e.preventDefault();
+        }
+      }
+    });
+  }
+
+  if (document.getElementById("welcomeSetCookieMessage")) {
+    document.getElementById("welcomeSetCookieMessage").onclick = function () {
+      setMessageCookie(true);
+      this.parentElement.parentElement.parentElement.style.display = "none";
+    };
+  }
 }
 
 /***/ }),

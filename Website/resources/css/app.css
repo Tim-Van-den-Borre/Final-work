@@ -298,9 +298,6 @@
     font-size: 12px;
     word-wrap: break-word;
 }
-#UserMessageInput {
-    border-radius: 0.25rem 0 0 0.25rem;
-}
 
 #UsermessageButton {
     border-radius: 0 0.25rem 0.25rem 0;

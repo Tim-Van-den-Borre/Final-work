@@ -9,7 +9,7 @@
             </button>
             </div>
             <div class="toast-body">
-                {{ session('messageSend') }}
+                Your message has been sent successfully.
             </div>
         </div>
     </div>
@@ -22,19 +22,16 @@
 
         <title>{{ config('app.name', '') }}</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
-        <!-- Styles -->
+        @livewireStyles
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-        @livewireStyles
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        <!-- Scripts -->
+
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     </head>
     <body>
         <nav id="welcomeNavigation" class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -166,26 +163,27 @@
                     <h3>Contact Us</h3>
                 </div>
                 
-                <form>
+                <form method="POST" action="{{ route('contactAdmin') }}">
+                @csrf
                     <div class="form-row">
                         <div class="col-md-4 mb-4">
                             <label for="inputName">Name</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="Enter Name" required>
+                            <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter Name" required>
                         </div>
                         <div class="col-md-4 mb-4">
                             <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Enter Email" required>
+                            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter Email" required>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <label for="inputEmail">Phone <small>(Format: 0999 99 99 99)</small></label>
-                            <input type="tel" class="form-control" id="inputEmail" pattern="[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}" placeholder="Enter Phone" required>
+                            <label for="inputPhone">Phone <small>(Format: 0999 99 99 99)</small></label>
+                            <input type="tel" class="form-control" id="inputPhone" name="inputPhone" pattern="[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}" placeholder="Enter Phone" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                       <div class="form-group col-md-12 mb-6">
                         <label for="inputMessage">Message</label>
-                        <textarea id="welcomeInputTextArea" class="form-control" id="inputMessage" rows="5" placeholder="Enter Message" required></textarea>
+                        <textarea id="inputMessage" class="form-control" name="inputMessage" rows="5" placeholder="Enter Message" required></textarea>
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Send Message</button>
@@ -214,6 +212,7 @@
         }
         ?>
     </div>
+    @if (Auth::check())
     <div class="row">
         <button id="chatbotButton" type="button" class="btn btn-outline-info btn-sm"></button>
         <div id="chatbotChatWindow">
@@ -224,11 +223,11 @@
                 </div>  
                 <div class="card-footer d-flex flex-row justify-content-between">
                     <input type="text" class="form-control" id="UserMessageInput" placeholder="Enter your message">
-                    <button class="btn btn-primary" id="UserMessageButton"><i class="bi bi-arrow-right-square-fill"></i></button>
                 </div>
             </div>
         </div>
     </div>
+    @endif
     <footer class="footer py-4">
         <div class="container">
             <div class="row align-items-center">

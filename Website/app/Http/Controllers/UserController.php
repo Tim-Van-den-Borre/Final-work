@@ -100,7 +100,7 @@ class UserController extends Controller
     public function getFile(){
         $patient = DB::table('users')->where('id', Auth::user()->id)->get();
 
-        $appointments = DB::table('appointments')->orderBy('date', 'desc')->get();
+        $appointments = DB::table('appointments')->orderBy('startDate', 'desc')->get();
 
         $doctors = DB::table('users')->where('role', 'Doctor')->get();
 
@@ -176,6 +176,4 @@ class UserController extends Controller
         }
         return response()->json($data->Data);
     }
-
-
-}
+} 

@@ -36,36 +36,36 @@ class DatabaseSeeder extends Seeder
             'patientID' => 2,
             'doctorID' => 1,
             'reason' => 'Pain in my head.',
-            'startDate' => '2022-02-03 09:00:00',
-            'endDate' => '2022-02-03 09:30:00'
+            'startDate' => '2021-06-10 09:00:00',
+            'endDate' => '2021-06-10 09:30:00'
         ]);
 
         DB::table('appointments')->insert([
             'patientID' => 2,
             'doctorID' => 1,
             'reason' => 'Pain in my throat.',
-            'startDate' => '2022-02-04 09:00:00',
-            'endDate' => '2022-02-04 09:30:00'
+            'startDate' => '2021-06-10 11:00:00',
+            'endDate' => '2021-06-10 11:30:00'
         ]);
 
         DB::table('appointments')->insert([
             'patientID' => 2,
             'doctorID' => 1,
             'reason' => 'Corona test.',
-            'startDate' => '2022-02-05 09:00:00',
-            'endDate' => '2022-02-05 09:30:00'
+            'startDate' => '2021-06-10 12:00:00',
+            'endDate' => '2021-06-10 12:30:00'
         ]);
 
         DB::table('medical_histories')->insert([
             'appointmentID' => 1,
             'condition' => 'Migraine',
-            'date' => '2022-02-03 09:30:00'
+            'date' => '2021-06-10 09:30:00'
         ]);
 
         DB::table('medical_histories')->insert([
             'appointmentID' => 3,
             'condition' => 'Corona',
-            'date' => '2022-02-05 11:00:00'
+            'date' => '2021-06-10 11:00:00'
         ]);
 
         DB::table('users')->insert([

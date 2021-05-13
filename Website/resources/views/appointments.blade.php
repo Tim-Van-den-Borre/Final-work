@@ -108,27 +108,8 @@
             </div>
             <form method="POST" action="{{ route('create-appointment') }}">
                 @csrf
-                <div class="form-row">
-                    @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Doctor')
-                        <div class="col-md-12 mb-6">
-                            <label for="patient">Patient</label>
-                            <select class="custom-select" id="patient" name="patient" required>
-                                <option value="">Choose...</option>
-                                @foreach($patients as $patient)
-                                    <option value="{{ $patient->id }}">{{ $patient->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-12 mb-6">
-                            <label for="doctor">Doctor</label>
-                            <input type="text" class="form-control" id="doctor" name="doctor" value="{{ Auth::user()->name }}" disabled>
-                        </div>
-                    @endif
-                </div>
-                @if(Auth::user()->role == 'Patient')
                     <div class="form-row">
-                        <div class="col-md-12 mb-6">
+                        <div class="col-md-6 mb-6">
                             <label for="patient">Doctor</label>
                             <select class="custom-select" id="doctor" name="doctor" required>
                                 <option value="">Choose...</option>
@@ -138,12 +119,15 @@
                             </select>
                         </div>
                     </div>
-                @endif
                 <div class="form-row">
-                    <div class="col-md-12 mb-6">
-                        <label for="date">Date</label>
-                        <input class="form-control" type="datetime-local" id="date" name="date" required>
-                    </div>
+                       <div class="col-md-6 mb-12">
+                                                    <label for="date">Start Date</label>
+                                                    <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
+                                                </div>
+                                                <div class="col-md-6 mb-12">
+                                                    <label for="date">End Date</label>
+                                                    <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
+                                                </div>
                     <div class="col-md-12 mb-6">
                         <label for="appointmentsReason">Reason</label>
                         <textarea class="form-control" id="appointmentsReason" name="appointmentsReason" placeholder="Reason for the visit" rows="2" maxlength="100" required></textarea>

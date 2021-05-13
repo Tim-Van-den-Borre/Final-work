@@ -13,6 +13,7 @@ use App\Http\Middleware\VerifyRoleAdmin;
 use App\Http\Middleware\VerifyRoleDoctorOrAdmin;
 use App\Http\Middleware\VerifyRolePatient;
 use App\Http\Middleware\VerifyRolePatientOrDoctorOrAdmin;
+use App\Mail\contactAdminMail;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,6 +44,20 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::get('/privacy-policy', [PrivacyController::class, 'index'])->name('privacy-policy');
 
 Route::post('/validateChatbotData', [UserController::class, 'validateChatbotData'])->name('validateChatbotData');
+
+Route::post('/contactAdmin', function (Request $request) {
+   
+    $details = [
+        'title' => 'Mail from Appointment Manager',
+        'body' => ''
+    ];
+   
+    Mail::to('tim.van.den.borre@student.ehb.be')->send(new contactAdminMail($details));
+
+    return redirect()->route('welcome')->with('messageSend', 'send');
+})->name('contactAdmin');
+
+Route::post('/chatbotCreateAppointment', [AppointmentController::class, 'chatbotCreateAppointment'])->name('chatbotCreateAppointment');
 
 // Auth
 Route::get('/calender', [CalenderController::class, 'getCalender'])->name('calender')->middleware('auth');

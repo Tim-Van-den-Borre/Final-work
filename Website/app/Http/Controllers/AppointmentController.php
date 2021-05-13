@@ -28,15 +28,26 @@ class AppointmentController extends Controller
     }
 
     public function chatbotCreateAppointment(Request $request){
+
+        $data = json_decode($request->getContent());
+
+        $response = DB::table('users')->where('name','LIKE','%'.$data->Data->doctor.'%')->get();
+        $doc = $response->id;
+
+
+        $date = date("Y-m-d",strtotime(trim($data->Data->date)));
+        $time = date('h:i:s', $data->Data->time);
+
+
         $appointment = new Appointment();
-        $appointment->patientID = $request->input('patient');
-        $appointment->doctorID =  $request->input('doctor');
-        $appointment->reason = $request->input('reason'); 
+        $appointment->patientID = $data->Data->patient;
+        $appointment->doctorID =  $doc;
+        $appointment->reason = $data->Data->reason; 
         $appointment->startDate = $request->input('startDate');
         $appointment->endDate = $request->input('endDate');
 
         $appointment->save();
-        return response(Auth::user()->id, 200);
+        return response("ok", 200);
     }
 
     public function createAppointment(Request $request){        
@@ -44,9 +55,11 @@ class AppointmentController extends Controller
             $this->validate($request, [
                 'doctor' => 'required',
                 'appointmentsReason' => 'required',
-                'startDate' => 'required',
-                'endDate' => 'required'
+                'startDate' => 'required|date',
+                'endDate' => 'required|date|after:startDate',                
             ]);
+
+            
             
             $appointment = new Appointment();
             $appointment->patientID = Auth::user()->id;

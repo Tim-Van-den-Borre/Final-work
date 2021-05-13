@@ -170,9 +170,9 @@ def customResponse(input_user):
         if entities != {}:
             for key in entities:
                 if key == 'approved':
-                    # api call naar appointment
+                    requests.post("http://127.0.0.1:8000/chatbotCreateAppointment", json=input_user)
                     return "Appointment has been created"
-        return "Can i make an appointment with the following data:  ?"
+        return "Can i make an appointment with the following data?:"
     return ""
 
 

@@ -37,7 +37,7 @@
                                 <ul class="list-group">
                                     @if($appointment->patientID == $patient->id)
                                         <li class="list-group-item" style="height: 12rem;" id="line">
-                                            <p style="word-wrap:break-word;">Date: {{ $appointment->date }} </p>
+                                            <p style="word-wrap:break-word;">Date: {{ $appointment->startDate }} - {{ $appointment->endDate }}</p>
                                             @foreach ($doctors as $doctor)
                                                 @if($appointment->doctorID == $doctor->id)
                                                 <p style="word-wrap:break-word;">Doctor: {{ $doctor->name }} </p>
