@@ -1,4 +1,20 @@
 <x-app-layout>
+    <script>
+        let today = new Date();
+
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+        let year = today.getFullYear();
+        if (month < 10) {
+            month = "0" + month.toString();
+        }
+
+        if (day < 10) {
+            day = "0" + day.toString();
+        }
+
+        let inputDate = year + "-" + month + "-" + day + "T00:00";
+    </script>
     <x-slot name="header">
         <h3>{{ __('Appointments') }}</h3>
     </x-slot>
@@ -109,7 +125,7 @@
             <form method="POST" action="{{ route('create-appointment') }}">
                 @csrf
                     <div class="form-row">
-                        <div class="col-md-6 mb-6">
+                        <div class="col-md-4 mb-12">
                             <label for="patient">Doctor</label>
                             <select class="custom-select" id="doctor" name="doctor" required>
                                 <option value="">Choose...</option>
@@ -118,17 +134,17 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-md-4 mb-12">
+                            <label for="date">Start Date</label>
+                            <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="col-md-4 mb-12">
+                            <label for="date">End Date</label>
+                            <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
+                        </div>
                     </div>
                 <div class="form-row">
-                       <div class="col-md-6 mb-12">
-                                                    <label for="date">Start Date</label>
-                                                    <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
-                                                </div>
-                                                <div class="col-md-6 mb-12">
-                                                    <label for="date">End Date</label>
-                                                    <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
-                                                </div>
-                    <div class="col-md-12 mb-6">
+                    <div class="col-md-6 mb-12">
                         <label for="appointmentsReason">Reason</label>
                         <textarea class="form-control" id="appointmentsReason" name="appointmentsReason" placeholder="Reason for the visit" rows="2" maxlength="100" required></textarea>
                         <p id="appointmentMessageCount" style="text-align: right; font-size: 12px;"></p>
@@ -192,6 +208,11 @@
                                                     <label for="date">End Date</label>
                                                     <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
                                                 </div>
+
+                                                <script>
+                                                        $("#startDate").attr("min", inputDate);
+                                                        $("#endDate").attr("min", inputDate);
+                                                </script>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-12 mb-12">
@@ -266,6 +287,10 @@
                                                                             <label for="medicalHistoryDate">Date</label>
                                                                             <input class="form-control" type="datetime-local" id="medicalHistoryDate" name="medicalHistoryDate" required>
                                                                         </div>
+
+                                                                        <script>
+                                                                            $("#medicalHistoryDate").attr("min", inputDate);
+                                                                        </script>
 
                                                                         <div class="col-md-6 mb-6">
                                                                             <label for="appointmentsCondition">Condition</label>
@@ -360,7 +385,10 @@
                                                                                 <label for="medicalHistoryDate">Date</label>
                                                                                 <input class="form-control" type="datetime-local" id="medicalHistoryDate" name="medicalHistoryDate" required>
                                                                             </div>
-    
+                                                                            <script>
+                                                                                $("#medicalHistoryDate").attr("min", inputDate);
+                                                                            </script>
+                                                               
                                                                             <div class="col-md-12 mb-6">
                                                                                 <label for="appointmentsCondition">Condition</label>
                                                                                 <textarea class="form-control" id="appointmentsCondition" name="appointmentsCondition" placeholder="Medical condition" rows="2" maxlength="100" required></textarea>
@@ -403,13 +431,17 @@
                                                                     <input type="hidden" class="form-control" id="appointmentID" name="appointmentID" value="{{ $appointment->id }}">
                                 
                                                                     <div class="col-md-6 mb-12">
-                                                                        <label for="date">Start Date</label>
-                                                                        <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
+                                                                        <label for="startDate">Start Date</label>
+                                                                        <input class="form-control editStart" type="datetime-local" id="startDate" name="startDate" required>
                                                                     </div>
                                                                     <div class="col-md-6 mb-12">
-                                                                        <label for="date">End Date</label>
-                                                                        <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
+                                                                        <label for="endDate">End Date</label>
+                                                                        <input class="form-control editEnd" type="datetime-local" id="endDate" name="endDate" required>
                                                                     </div>
+                                                                    <script>
+                                                                        $(".editStart").attr("min", inputDate);
+                                                                        $(".editEnd").attr("min", inputDate);
+                                                                    </script>
                                                                 </div>
                                     
                                                                 <div class="form-row">

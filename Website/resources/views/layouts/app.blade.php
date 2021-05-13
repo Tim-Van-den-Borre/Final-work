@@ -21,7 +21,6 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
-
     </head>
     <body id="appBody" class="font-sans antialiased">
         @include('navigation')

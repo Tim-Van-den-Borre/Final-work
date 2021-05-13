@@ -74,6 +74,24 @@
             <x-jet-label for="birthdate" value="{{ __('Birthdate') }}" />
             <x-jet-input id="birthdate" type="date" class="mt-1 block w-full" wire:model.defer="state.birthdate" />
             <x-jet-input-error for="birthdate" class="mt-2" />
+
+            <script>
+                let today = new Date();
+
+                let month = today.getMonth() + 1;
+                let day = today.getDate();
+                let year = today.getFullYear() - 18;
+                if (month < 10) {
+                    month = "0" + month.toString();
+                }
+
+                if (day < 10) {
+                    day = "0" + day.toString();
+                }
+
+                let inputDate = year + "-" + month + "-" + day;
+                $("#birthdate").attr("max", inputDate);
+            </script>
         </div>
     </x-slot>
 

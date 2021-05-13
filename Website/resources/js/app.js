@@ -2,6 +2,7 @@ require("./bootstrap");
 
 require("alpinejs");
 console.log(window.location.href);
+
 /* app.layout.blade */
 if (window.location.href != "http://127.0.0.1:8000/") {
     if (document.getElementById("appMenuToggle")) {
