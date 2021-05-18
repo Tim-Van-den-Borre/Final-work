@@ -130,7 +130,7 @@ if (window.location.href == "http://127.0.0.1:8000/") {
         }
 
         function SendUserMessageToApi(message) {
-            fetch("http://127.0.0.1:5000/api/chatbotGetUserId", {
+            fetch("http://127.0.0.1:8000/api/chatbotGetUserId", {
                 method: "get",
                 headers: {
                     "Content-Type": "application/json; charset=utf-8"

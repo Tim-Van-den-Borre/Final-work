@@ -9,6 +9,10 @@ use App\Models\Appointment;
 use App\Models\MedicalHistory;
 use DateTime;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailNotify;
+use App\Mail\AppointmentCreated;
+
 
 class AppointmentController extends Controller
 {
@@ -32,21 +36,26 @@ class AppointmentController extends Controller
         $data = json_decode($request->getContent());
 
         $response = DB::table('users')->where('name','LIKE','%'.$data->Data->doctor.'%')->get();
-        $doc = $response->id;
 
+        $doctor = $response[0]->id;
 
-        $date = date("Y-m-d",strtotime(trim($data->Data->date)));
-        $time = date('h:i:s', $data->Data->time);
+        $startdate = date("Y-m-d",strtotime(trim($data->Data->date))) . " " . $data->Data->time . ":00:00";
 
+        $enddate = date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($startdate)));
 
         $appointment = new Appointment();
         $appointment->patientID = $data->Data->patient;
-        $appointment->doctorID =  $doc;
+        $appointment->doctorID =  $doctor;
         $appointment->reason = $data->Data->reason; 
-        $appointment->startDate = $request->input('startDate');
-        $appointment->endDate = $request->input('endDate');
+        $appointment->startDate = $startdate;
+        $appointment->endDate = $enddate;
 
         $appointment->save();
+
+        $user = DB::table('users')->where('id', $appointment->doctorID)->get();
+
+        Mail::to(Auth::user()->email)->send(new AppointmentCreated($appointment, $user));
+
         return response("ok", 200);
     }
 
@@ -56,21 +65,25 @@ class AppointmentController extends Controller
                 'doctor' => 'required',
                 'appointmentsReason' => 'required',
                 'startDate' => 'required|date',
-                'endDate' => 'required|date|after:startDate',                
+                'time' => 'required',                
             ]);
 
-            
+            $starttime = date("Y-m-d",strtotime(trim($request->input('startDate')))) . " " . $request->input('time');
+            $endtime = date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($starttime)));
             
             $appointment = new Appointment();
             $appointment->patientID = Auth::user()->id;
             $appointment->doctorID =  $request->input('doctor');
             $appointment->reason = $request->input('appointmentsReason'); 
-            $appointment->startDate = $request->input('startDate');
-            $appointment->endDate = $request->input('endDate');
+            $appointment->startDate = $starttime;
+            $appointment->endDate = $endtime;
     
             $user = DB::table('users')->where('id', $appointment->doctorID)->get();
     
             $appointment->save();
+            
+            Mail::to(Auth::user()->email)->send(new AppointmentCreated($appointment, $user));
+
             return redirect()->route('appointments')->with('appointmentalert', $user[0]->name);
         }
 
@@ -78,21 +91,27 @@ class AppointmentController extends Controller
             $this->validate($request, [
                 'patient' => 'required',
                 'appointmentsReason' => 'required',
-                'startDate' => 'required',
-                'endDate' => 'required'
+                'startDate' => 'required|date',
+                'time' => 'required',                
             ]);
 
+            $starttime = date("Y-m-d",strtotime(trim($request->input('startDate')))) . " " . $request->input('time');
+            $endtime = date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($starttime)));
+            
             $appointment = new Appointment();
             $appointment->patientID = $request->input('patient');
-            $appointment->doctorID = Auth::user()->id; 
-            $appointment->reason = $request->input('appointmentsReason');
-            $appointment->startDate = $request->input('startDate');
-            $appointment->endDate = $request->input('endDate');
+            $appointment->doctorID =  Auth::user()->id;
+            $appointment->reason = $request->input('appointmentsReason'); 
+            $appointment->startDate = $starttime;
+            $appointment->endDate = $endtime;
     
-            $user = DB::table('users')->where('id', $appointment->patientID)->get();
-    
+            $patient = DB::table('users')->where('id', $appointment->patientID)->get();
+            $user = DB::table('users')->where('id', $appointment->doctorID)->get();
             $appointment->save();
-            return redirect()->route('appointments')->with('appointmentalert', $user[0]->name);
+
+            Mail::to($patient[0]->email)->send(new AppointmentCreated($appointment, $user));
+            
+            return redirect()->route('appointments')->with('appointmentalert', $patient[0]->name);
         }
     }
 
@@ -100,13 +119,12 @@ class AppointmentController extends Controller
         $this->validate($request, [
             'appointmentID' => 'required',
             'appointmentsCondition' => 'required',
-            'medicalHistoryDate' => 'required'
         ]);
 
         $history = new MedicalHistory();
         $history->appointmentID = $request->input('appointmentID');
         $history->condition = $request->input('appointmentsCondition');
-        $history->date = $request->input('medicalHistoryDate');
+        $history->date = date("Y-m-d H:i");
 
         $history->save();
 
@@ -146,15 +164,18 @@ class AppointmentController extends Controller
         $this->validate($request, [
             'appointmentID' => 'required',
             'appointmentsReason' => 'required',
-            'startDate' => 'required',
-            'endDate' => 'required'
+            'startDate' => 'required|date',
+            'time' => 'required',  
         ]);
+
+        $starttime = date("Y-m-d",strtotime(trim($request->input('startDate')))) . " " . $request->input('time');
+        $endtime = date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($starttime)));
 
         $appointment = Appointment::find($request->input('appointmentID'));
         $appointment->doctorID = Auth::user()->id; 
         $appointment->reason = $request->input('appointmentsReason');
-        $appointment->startDate = $request->input('startDate');
-        $appointment->endDate = $request->input('endDate');
+        $appointment->startDate = $starttime;
+        $appointment->endDate = $endtime;
 
         $user = DB::table('users')->where('id', $appointment->patientID)->get();
 

@@ -47,12 +47,14 @@ Route::post('/validateChatbotData', [UserController::class, 'validateChatbotData
 
 Route::post('/contactAdmin', function (Request $request) {
    
-    $details = [
-        'title' => 'Mail from Appointment Manager',
-        'body' => ''
+    $contact = [
+        'name' => $request->input('inputName'),
+        'email' => $request->input('inputEmail'),
+        'phone' => $request->input('inputPhone'),
+        'message' => $request->input('inputMessage')
     ];
    
-    Mail::to('tim.van.den.borre@student.ehb.be')->send(new contactAdminMail($details));
+    Mail::to('tim.van.den.borre@student.ehb.be')->send(new contactAdminMail($contact));
 
     return redirect()->route('welcome')->with('messageSend', 'send');
 })->name('contactAdmin');

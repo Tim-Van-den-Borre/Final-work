@@ -13,7 +13,7 @@
             day = "0" + day.toString();
         }
 
-        let inputDate = year + "-" + month + "-" + day + "T00:00";
+        let inputDate = year + "-" + month + "-" + day;
     </script>
     <x-slot name="header">
         <h3>{{ __('Appointments') }}</h3>
@@ -135,13 +135,39 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-12">
-                            <label for="date">Start Date</label>
-                            <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
+                            <label for="startDate">Date</label>
+                            <input class="form-control" type="date" id="startDate" name="startDate" required>
                         </div>
-                        <div class="col-md-4 mb-12">
-                            <label for="date">End Date</label>
-                            <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
+                        <div class="form-group col-md-4 mb-12">
+                            <label for="time">Time</label>
+                            <select class="form-control" id="time" name="time" required>
+                                <option value="">Choose time...</option>
+                                <option value="08:00">08:00</option>
+                                <option value="08:30">08:30</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09:30">09:30</option>
+                                <option value="10:00">10:00</option>
+                                <option value="10:30">10:30</option>
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+                                <option value="12:00">12:00</option>
+                                <option value="12:30">12:30</option>
+                                <option value="13:00">13:00</option>
+                                <option value="13:30">13:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                            </select>
                         </div>
+                        <script>
+                            $("#startDate").attr("min", inputDate);
+                        </script>
                     </div>
                 <div class="form-row">
                     <div class="col-md-6 mb-12">
@@ -200,18 +226,44 @@
                                                         <label for="doctor">Doctor</label>
                                                         <input type="text" class="form-control" id="doctor" name="doctor" value="{{ Auth::user()->name }}" disabled>
                                                     </div>
-                                                <div class="col-md-6 mb-12">
-                                                    <label for="date">Start Date</label>
-                                                    <input class="form-control" type="datetime-local" id="startDate" name="startDate" required>
-                                                </div>
-                                                <div class="col-md-6 mb-12">
-                                                    <label for="date">End Date</label>
-                                                    <input class="form-control" type="datetime-local" id="endDate" name="endDate" required>
-                                                </div>
-
+                                                    <div class="col-md-6 mb-12">
+                            <label for="startDate">Date</label>
+                            <input class="form-control" type="date" id="startDate" name="startDate" required>
+                        </div>
+                        <?php 
+                            $times = array("08:00", "08:30", "09:00", "09:30");
+                        ?>
+                    
+                        <div class="form-group col-md-6 mb-12">
+                            <label for="time">Time</label>
+                            <select class="form-control" id="time" name="time" required>
+                                <option value="">Choose time...</option>
+                                <option value="08:00">08:00</option>
+                                <option value="08:30">08:30</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09:30">09:30</option>
+                                <option value="10:00">10:00</option>
+                                <option value="10:30">10:30</option>
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+                                <option value="12:00">12:00</option>
+                                <option value="12:30">12:30</option>
+                                <option value="13:00">13:00</option>
+                                <option value="13:30">13:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                            </select>
+                        </div>
                                                 <script>
                                                         $("#startDate").attr("min", inputDate);
-                                                        $("#endDate").attr("min", inputDate);
+                                                
                                                 </script>
                                             </div>
                                             <div class="form-row">
@@ -283,15 +335,6 @@
                                                                     </div>
 
                                                                     <div class="form-row">
-                                                                        <div class="col-md-6 mb-6">
-                                                                            <label for="medicalHistoryDate">Date</label>
-                                                                            <input class="form-control" type="datetime-local" id="medicalHistoryDate" name="medicalHistoryDate" required>
-                                                                        </div>
-
-                                                                        <script>
-                                                                            $("#medicalHistoryDate").attr("min", inputDate);
-                                                                        </script>
-
                                                                         <div class="col-md-6 mb-6">
                                                                             <label for="appointmentsCondition">Condition</label>
                                                                             <textarea class="form-control" id="appointmentsCondition" name="appointmentsCondition" placeholder="Medical condition" rows="2" maxlength="100" required></textarea>
@@ -380,15 +423,7 @@
                                                                             </div>
                                                                         </div>
     
-                                                                        <div class="form-row">
-                                                                            <div class="col-md-12 mb-6">
-                                                                                <label for="medicalHistoryDate">Date</label>
-                                                                                <input class="form-control" type="datetime-local" id="medicalHistoryDate" name="medicalHistoryDate" required>
-                                                                            </div>
-                                                                            <script>
-                                                                                $("#medicalHistoryDate").attr("min", inputDate);
-                                                                            </script>
-                                                               
+                                                                        <div class="form-row">                                                               
                                                                             <div class="col-md-12 mb-6">
                                                                                 <label for="appointmentsCondition">Condition</label>
                                                                                 <textarea class="form-control" id="appointmentsCondition" name="appointmentsCondition" placeholder="Medical condition" rows="2" maxlength="100" required></textarea>
@@ -431,25 +466,49 @@
                                                                     <input type="hidden" class="form-control" id="appointmentID" name="appointmentID" value="{{ $appointment->id }}">
                                 
                                                                     <div class="col-md-6 mb-12">
-                                                                        <label for="startDate">Start Date</label>
-                                                                        <input class="form-control editStart" type="datetime-local" id="startDate" name="startDate" required>
-                                                                    </div>
-                                                                    <div class="col-md-6 mb-12">
-                                                                        <label for="endDate">End Date</label>
-                                                                        <input class="form-control editEnd" type="datetime-local" id="endDate" name="endDate" required>
-                                                                    </div>
-                                                                    <script>
-                                                                        $(".editStart").attr("min", inputDate);
-                                                                        $(".editEnd").attr("min", inputDate);
-                                                                    </script>
+                            <label for="startDate">Date</label>
+                            <input class="form-control" type="date" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="form-group col-md-6 mb-12">
+                            <label for="time">Time</label>
+                            <select class="form-control" id="time" name="time" required>
+                                <option value="">Choose time...</option>
+                                <option value="08:00">08:00</option>
+                                <option value="08:30">08:30</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09:30">09:30</option>
+                                <option value="10:00">10:00</option>
+                                <option value="10:30">10:30</option>
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+                                <option value="12:00">12:00</option>
+                                <option value="12:30">12:30</option>
+                                <option value="13:00">13:00</option>
+                                <option value="13:30">13:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                            </select>
+                        </div>
+                                                <script>
+                                                        $("#startDate").attr("min", inputDate);
+                                                
+                                                </script>
+                                            </div>
                                                                 </div>
                                     
-                                                                <div class="form-row">
-                                                                    <div class="col-md-12 mb-12">
+                                                                <div class="form-group col-md-12 mb-12">
+                                                                
                                                                         <label for="appointmentsReason">Reason</label>
                                                                         <textarea class="form-control" id="appointmentsReason" name="appointmentsReason" placeholder="Reason for the visit" rows="2" maxlength="100" required></textarea>
                                                                         <p id="appointmentMessageCount" style="text-align: right; font-size: 12px;"></p>
-                                                                    </div>
+                                                              
                                                                 </div>
                                                                 <div class="form-row">
                                                                     <div class="col-md-12 mb-6">

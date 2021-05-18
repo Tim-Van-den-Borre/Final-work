@@ -11,16 +11,16 @@ class contactAdminMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $contact;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($contact)
     {
-        //
+        $this->contact = $contact;
     }
 
     /**
@@ -30,7 +30,7 @@ class contactAdminMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Appointment Manager')
+        return $this->subject('Message from Appointment Manager')
                     ->view('mails.contactAdminMail');
     }
 }

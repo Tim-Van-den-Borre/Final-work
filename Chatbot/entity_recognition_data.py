@@ -1,6 +1,9 @@
 def preprocessdata():
     TRAIN_DATA = [
 
+        ("yes", {"entities": [(0, 3, "approved")]}),
+        ("no", {"entities": [(0, 2, "declined")]}),
+
         # Name doctor
         ("I would like an appointment with doctor Tim", {"entities": [(40, 43, "name_doctor")]}),
         ("I would like an appointment with doctor Ayse", {"entities": [(40, 44, "name_doctor")]}),
@@ -142,9 +145,5 @@ def preprocessdata():
         ("Can i get an appointment for taking blood?", {"entities": [(29, 42, "appointment_reason")]}),
         ("Can i get an appointment for my arm?", {"entities": [(29, 35, "appointment_reason")]}),
         ("I'm feeling sick", {"entities": [(0, 16, "appointment_reason")]}),
-
-        ("Yes", {"entities": [(0, 2, "approved")]}),
-        ("yes", {"entities": [(0, 2, "approved")]}),
-        ("Ye", {"entities": [(0, 1, "approved")]}),
     ]
     return TRAIN_DATA

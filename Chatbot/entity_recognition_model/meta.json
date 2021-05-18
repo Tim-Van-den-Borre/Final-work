@@ -27,6 +27,7 @@
       "appointment_hour",
       "appointment_reason",
       "approved",
+      "declined",
       "name_doctor"
     ]
   }

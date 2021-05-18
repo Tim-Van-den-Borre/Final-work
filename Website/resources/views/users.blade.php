@@ -108,6 +108,23 @@
                                     <div class="mt-4">
                                         <x-jet-label for="birthdate" value="{{ __('Birthdate') }}" />
                                         <x-jet-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required />
+                                        <script>
+                                            let today = new Date();
+
+                                            let month = today.getMonth() + 1;
+                                            let day = today.getDate();
+                                            let year = today.getFullYear() - 18;
+                                            if (month < 10) {
+                                                month = "0" + month.toString();
+                                            }
+
+                                            if (day < 10) {
+                                                day = "0" + day.toString();
+                                            }
+
+                                            let inputDate = year + "-" + month + "-" + day;
+                                            $("#birthdate").attr("max", inputDate);
+                                        </script>
                                     </div>
                         
                                     <div class="mt-4">
@@ -160,6 +177,7 @@
                         <td>{{ $user->phonenumber}}</td>
                         <td>{{ $user->role}}</td>
                         <td>
+                            @if ($user->id != Auth::id())
                             <form method="post" action="{{ route('setPrivilege') }}">
                                 @csrf
                                     <input class="hidden" value="{{ $user->id }}" id="userID" name="userID" />
@@ -172,10 +190,12 @@
                                         <option value="Admin">Admin</option>
                                     </select>
                             </form>
+                            @endif
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdropRemove{{ $user->id }}">X</button>                            
-
+                            @if ($user->id != Auth::id())
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdropRemove{{ $user->id }}">X</button>                             
+                            @endif                     
                             <div class="modal fade" id="staticBackdropRemove{{ $user->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelRemove" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                 <div class="modal-content">

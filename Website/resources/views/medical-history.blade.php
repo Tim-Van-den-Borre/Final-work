@@ -68,9 +68,7 @@
                         @endforeach
                         <br />
                         <div class="row">
-                            <div class="col-12">
-                                <p style="text-align: center;"><small >Please navigate to your profile if you want a copy of your medical history.</small></p>
-                            </div>
+                            <hr />
                         </div>
                     </div>
                 </div>

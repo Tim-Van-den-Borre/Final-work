@@ -11,11 +11,6 @@
                 <li class="nav-item waves-effect waves-light">
                     <a class="nav-link btn-sm" id="update-password" data-toggle="tab" href="#updatePassword" role="tab" aria-controls="updatePassword" aria-selected="false">Update Password</a>
                 </li>
-                @if(Auth::user()->role == 'Patient')
-                    <li class="nav-item waves-effect waves-light">
-                        <a class="nav-link btn-sm" id="medical-history" data-toggle="tab" href="#medicalHistory" role="tab" aria-controls="medicalHistory" aria-selected="false">Medical History</a>
-                    </li>
-                @endif
                 <li class="nav-item waves-effect waves-light">
                     <a class="nav-link btn-sm" id="user-data" data-toggle="tab" href="#userData" role="tab" aria-controls="userData" aria-selected="false">User Data</a>
                 </li>
@@ -52,36 +47,6 @@
                         @endif
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="medicalHistory" role="tabpanel" aria-labelledby="medical-history">
-                    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                        @if(Auth::user()->role == 'Patient')
-                            <div id="requestMedicalHistoryLine" class="mt-10 sm:mt-0">
-                                <div class="md:grid md:grid-cols-3 md:gap-6">
-                                    <div class="md:col-span-1">
-                                        <div class="px-4 sm:px-0">
-                                        <h3 class="text-lg font-medium text-gray-900">Medical History</h3>
-                                        <p class="mt-1 text-sm text-gray-600">Request your personal medical history</p>
-                                        </div>
-                                    </div>
-                                    <div class="mt-5 md:mt-0 md:col-span-2">
-                                        <div class="px-4 py-3 sm:p-6 bg-white shadow sm:rounded-lg">
-                                            <div class="max-w-xl text-sm text-gray-600">
-                                                You can dowload the pdf version of your personal medical history here.
-                                            </div>
-                                            <div class="mt-5">
-                                                    <a style="text-decoration: none;" href="" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
-                                                        Download your medical history
-                                                    </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
                 <div class="tab-pane fade" id="userData" role="tabpanel" aria-labelledby="user-data">
                     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                         <div id="requestUserDataLine" class="mt-10 sm:mt-0">
