@@ -230,9 +230,6 @@
                             <label for="startDate">Date</label>
                             <input class="form-control" type="date" id="startDate" name="startDate" required>
                         </div>
-                        <?php 
-                            $times = array("08:00", "08:30", "09:00", "09:30");
-                        ?>
                     
                         <div class="form-group col-md-6 mb-12">
                             <label for="time">Time</label>

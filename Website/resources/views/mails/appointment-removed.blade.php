@@ -8,7 +8,7 @@
 
         <p>Dear Sir,<br />Dear Madam,</p>
 
-        <p>An appointment has been created for you on {{ $date }} at {{ $time }} with doctor {{ $user[0]->name }}.</p>
+        <p>An appointment has been removed (doctor {{ $user[0]->name }}).</p>
 
         <p>Kind regards,<br />Appointment Manager</p>
     </body>

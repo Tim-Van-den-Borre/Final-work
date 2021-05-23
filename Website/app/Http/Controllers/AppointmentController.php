@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailNotify;
 use App\Mail\AppointmentCreated;
+use App\Mail\AppointmentRemoved;
+use App\Mail\AppointmentUpdated;
 
 
 class AppointmentController extends Controller
@@ -141,13 +143,17 @@ class AppointmentController extends Controller
             'patientID' => 'required'
         ]);
 
-        $user = DB::table('users')->where('id', $request->input('patientID'))->get();
+        $patient = DB::table('users')->where('id', $request->input('patientID'))->get();
 
         $histories = DB::table('medical_histories')->where('appointmentID', $request->input('appointmentID'))->delete();
 
         $appointment = DB::table('appointments')->where('id', $request->input('appointmentID'))->delete();
 
-        return redirect()->route('appointments')->with('appointmentRemoved', $user[0]->name);
+        $user = DB::table('users')->where('id', Auth::user()->id)->get();
+
+        Mail::to($patient[0]->email)->send(new AppointmentRemoved($user));
+
+        return redirect()->route('appointments')->with('appointmentRemoved', $patient[0]->name);
     }
 
     public function removeHistory(Request $request){
@@ -177,9 +183,14 @@ class AppointmentController extends Controller
         $appointment->startDate = $starttime;
         $appointment->endDate = $endtime;
 
-        $user = DB::table('users')->where('id', $appointment->patientID)->get();
+        $patient = DB::table('users')->where('id', $appointment->patientID)->get();
+
+        $user = DB::table('users')->where('id', $appointment->doctorID)->get();
 
         $appointment->save();
-        return redirect()->route('appointments')->with('editappointmentalert', $user[0]->name);
+
+        Mail::to($patient[0]->email)->send(new AppointmentUpdated($appointment, $user));
+
+        return redirect()->route('appointments')->with('editappointmentalert', $patient[0]->name);
     }
 }
