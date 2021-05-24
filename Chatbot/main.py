@@ -171,6 +171,12 @@ def customResponse(input_user):
             for key in entities:
                 if key == 'approved':
                     requests.post("http://127.0.0.1:8000/chatbotCreateAppointment", json=input_user)
+
+                    input_user['Data']['doctor'] = ''
+                    input_user['Data']['date'] = ''
+                    input_user['Data']['time'] = ''
+                    input_user['Data']['reason'] = ''
+
                     return "Appointment has been created."
                 if key == 'declined':
                     input_user['Data']['doctor'] = ''
@@ -179,6 +185,7 @@ def customResponse(input_user):
                     input_user['Data']['reason'] = ''
 
                     return "Appointment request has been canceled."
+
         return "Can i make an appointment with doctor " + input_user['Data']['doctor'] + " on " + input_user['Data']['date'] + "?"
     return ""
 
@@ -232,7 +239,7 @@ def ChatForTraining():
 
             response_chatbot = "{}".format(data[tag]['response'][random_response])
 
-            if results[results_index] > 0.7:
+            if results[results_index] > 0.5:
                 print("Bot: " + response_chatbot)
             else:
                 print("Bot: " + "{}".format(data['unclear']['response'][random_response]))

@@ -82,6 +82,12 @@
                 </div>
             </div>
             <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 0.5%;">
+                <div class="card-header">Medical History</div>
+                <div class="card-body">
+                    <p class="card-text">View your personal medical history here.</p>
+                </div>
+            </div>
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 0.5%;">
                 <div class="card-header">Calendar</div>
                 <div class="card-body">
                     <p class="card-text">View your personal planning with appointments using your own personal calendar.</p>
