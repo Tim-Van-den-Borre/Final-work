@@ -186,7 +186,7 @@ def customResponse(input_user):
 
                     return "Appointment request has been canceled."
 
-        return "Can i make an appointment with doctor " + input_user['Data']['doctor'] + " on " + input_user['Data']['date'] + "?"
+        return "Can i make your appointment with doctor " + input_user['Data']['doctor'] + " on " + input_user['Data']['date'] + "?"
     return ""
 
 
