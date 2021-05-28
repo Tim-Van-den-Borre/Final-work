@@ -1,33 +1,33 @@
 {
     "greeting": {
-        "response": ["Hello there", "Good to see you again", "Hi there, how can I help?", "Hi, how may i be of survice?"]
+        "response": ["Hello there", "Hi there, how can i be of service", "Hi there, how can I help?", "Hi, how may i be of service?"]
     },
     "name": {
-        "response": ["I am Tim, i assist the doctor when he/she is not available", "My name is Tim", "My name is Tim, pleasure to meet you!", "I'm Tim"]
+        "response": ["I'm Tim, i assist the doctor when he/she is not available", "My name is Tim", "My name is Tim, pleasure to meet you!", "I'm Tim. Nice to meet you."]
     },
     "payment": {
         "response": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards", "VISA, Mastercard and AMEX", "Most major cards"]
     },
     "age": {
-        "response": ["I am 22 years old", "Age of 22", "I'm 22", "I'm at the age of 22"]
+        "response": ["I'm 23 years old", "I'm at the age of 23", "I'm 23", "I'm at the age of 23"]
     },
     "goodbye": {
-        "response": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon.", "Goodbye"]
+        "response": ["Bye, thanks for visiting", "Have a nice day", "Bye! Come back again soon.", "Goodbye"]
     },
     "thanks": {
-        "response": ["Happy to help!", "Any time!", "My pleasure", "you're welcome"]
+        "response": ["Happy to help!", "Any time!", "My pleasure!", "You're welcome"]
     },
     "hours": {
-        "response": ["We're open every work day 9am-5pm", "Our hours are 9am-5pm every work day", "9am to 5pm on working days", "9am-5pm, only on working days"]
+        "response": ["We're open every work day 9am-6pm", "Our hours are 9am-6pm every work day", "9am to 6pm", "9am-6pm, every day."]
     },
     "unclear": {
-        "response": ["Please explain yourself more.", "I didn't understand you.", "Would you like to explain this a bit more.", "I didn't quite understand you."]
+        "response": ["Please explain yourself more.", "I didn't understand you.", "Please explain this a bit more.", "I didn't quite understand you."]
     },
     "appointment": {
-        "response": ["I'll check the doctor's agenda.", "Right away, a moment please.", "I'm sorry, that's not possible.", "There are no free spots this month, would you like an appointment next month?"]
+        "response": ["Yes, but please provide more information for your appointment.", "Right away, but i need extra information like your reason, time and doctor to create your appointment.", "Yes, but i need more information for your appointment like the doctor, your reason for a visit and the time of your visit.", "Yes, please provide me more information for your appointment."]
     },
     "possibility": {
-        "response": ["Yes, that's possible", "No, i'm sorry", "Maybe, I'll have to check to agenda. One moment.", "No"]
+        "response": ["Yes, that's possible but please provide me the needed information like the reason, the time and the doctor.", "Ofcourse", "Yes", "Yeah"]
     },
     "confirmation": {
         "response": ["Done!", "Your appointment has been created.", "Your appointment has been created. Please confirm you got an email.", "All done"]
