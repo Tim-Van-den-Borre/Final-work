@@ -43,10 +43,9 @@ class AppointmentController extends Controller
 
         if (date("Y-m-d",strtotime(trim($data->Data->time))))
         {
-            $data->Data->time = substr($data->Data->time, 6, 8);
-            error_log($data->Data->time);
+            $data->Data->time = substr($data->Data->time, -2);
         }
-        error_log($data->Data->time);
+
         $startdate = date("Y-m-d",strtotime(trim($data->Data->date))) . " " . $data->Data->time . ":00:00";
 
         $enddate = date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($startdate)));
