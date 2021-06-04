@@ -17,6 +17,7 @@ def postUserId():
     data = request.get_json()
     return data
 
+# {'Message': '', 'UserID': 1, 'Data': {'patient': '', 'doctor': '', 'reason': '', 'date': '', 'time': ''}}
 
 @app.route('/chat', methods=['POST'])
 def post():

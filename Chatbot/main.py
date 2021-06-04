@@ -165,7 +165,8 @@ def customResponse(input_user):
     if input_user['Data']['doctor'] == 'NOT FOUND':
         return "The given doctor has not been found. Please provide another name of a doctor..."
 
-    if input_user['Data']['doctor'] and input_user['Data']['date'] and input_user['Data']['time'] and input_user['Data']['reason']:
+    if input_user['Data']['doctor'] and input_user['Data']['date'] and input_user['Data']['time'] and \
+            input_user['Data']['reason']:
         entities = entity_recognition.recognize_entities(input_user['Message'])  # entity recognition.
         if entities != {}:
             for key in entities:
@@ -186,7 +187,8 @@ def customResponse(input_user):
 
                     return "Appointment request has been canceled."
 
-        return "Can i make your appointment with doctor " + input_user['Data']['doctor'] + " on " + input_user['Data']['date'] + "?"
+        return "Can i make your appointment with doctor " + input_user['Data']['doctor'] + " on " + input_user['Data'][
+            'date'] + "?"
     return ""
 
 
